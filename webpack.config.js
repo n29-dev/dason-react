@@ -7,7 +7,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: path.resolve(__dirname, 'src/index.js'),
+    entry: path.resolve(__dirname, 'src/index.jsx'),
     output: {
         clean: true,
         path: path.resolve(__dirname, '/dist'),
@@ -26,7 +26,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(png|jpg|gif|jpeg|svg)$/,
+                test: /\.(png|jpg|gif|jpeg)$/,
                 type: 'asset/resource',
             },
             {
@@ -64,6 +64,12 @@ module.exports = {
                     },
                 ],
             },
+
+            {
+                test: /\.svg/,
+                issuer: /\.[jt]sx?$/,
+                use: ['@svgr/webpack'],
+            },
         ],
     },
 
@@ -79,4 +85,11 @@ module.exports = {
             filename: 'style.css',
         }),
     ],
+
+    resolve: {
+        extensions: ['.js', '.jsx', '.png', '.svg', 'jpg', 'jpeg'],
+        alias: {
+            Images: path.resolve(__dirname, 'src/public/assets/images'),
+        },
+    },
 };

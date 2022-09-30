@@ -1,3 +1,51 @@
+/* @font-face {
+    font-family: 'Be Vietnam Pro';
+    src: url('./public/assets/fonts/BeVietnamPro-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Be Vietnam Pro';
+    src: url('./public/assets/fonts/BeVietnamPro-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Be Vietnam Pro';
+    src: url('./public/assets/fonts/BeVietnamPro-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'Be Vietnam Pro';
+    src: url('./public/assets/fonts/BeVietnamPro-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Be Vietnam Pro';
+    src: url('./public/assets/fonts/BeVietnamPro-ExtraBold.ttf');
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
+/* import fonts */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*=== font famil ===*/
+
+@layer base {
+    html {
+        font-family: 'Be Vietnam Pro', sans-serif;
+        font-weight: 400;
+        color: #545a6d;
+    }
+    body {
+    }
+}
+
+/* custom css */
+
+.h-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, 0);
+}
