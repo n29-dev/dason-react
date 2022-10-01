@@ -28,10 +28,10 @@ function useDropdownToggle(init = false, duration = 500) {
             }
 
             if (dropDownState) {
-                dropDownMenu.style.height = `${maxHeight}px`;
+                dropDownMenu.style.height = `${maxHeight.toFixed()}px`;
                 maxHeight -= height;
             } else {
-                dropDownMenu.style.height = `${height}px`;
+                dropDownMenu.style.height = `${height.toFixed()}px`;
                 height += maxHeight / 100;
             }
         }, (duration / 1000) * 10);

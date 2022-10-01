@@ -5,7 +5,9 @@ function MenuItem({ text, Icon, children, badge, dropdownHandler }) {
     return (
         <li>
             <button
-                className={`px-6 py-3 text-dark-400 flex items-center text-[13px] w-full
+                className={` ${
+                    dropdownHandler && 'dropdown-btn'
+                } px-6 py-3 text-dark-400 flex items-center text-[13px] w-full
             relative hover:bg-white-400 hover:text-blue ${dropdownHandler?.get() && 'active'}`}
                 type="button"
                 onClick={dropdownHandler?.toggle || undefined}

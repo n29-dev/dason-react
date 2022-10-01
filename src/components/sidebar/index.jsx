@@ -17,18 +17,52 @@ import lockIcon from 'Images/lock.svg';
 import mapsIcon from 'Images/maps.svg';
 import newspaperIcon from 'Images/newspaper.svg';
 import shareIcon from 'Images/share.svg';
+import { useEffect, useRef } from 'react';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import Button from '../globals/helpers/button';
 import MenuItem from './menuItems';
 import SubMenu from './subMenu';
 
+// dropdown buttons
+
+let dropdownBtns = [];
+
+function keepOneOpen(event) {
+    const { x, y } = event;
+    // eslint-disable-next-line no-unused-vars
+    let clickedBtn;
+
+    dropdownBtns.forEach((btn) => {
+        const { left, right, bottom, top } = btn.getBoundingClientRect();
+        if (x >= left && x <= right && y >= top && y <= bottom) {
+            clickedBtn = btn;
+        }
+    });
+
+    if (clickedBtn) {
+        dropdownBtns.forEach((btn) => {
+            if (!clickedBtn.isSameNode(btn) && btn.classList.contains('active')) {
+                btn.click();
+            }
+        });
+    }
+}
+
 function Sidebar() {
     const [appsDropdown, appsDropdownToggle] = useDropdownToggle();
+    const [chatsDropdown, chatsDropdownToggle] = useDropdownToggle();
+    const sidebarRef = useRef();
+
+    useEffect(() => {
+        dropdownBtns = sidebarRef.current.querySelectorAll('.dropdown-btn');
+        sidebarRef.current.addEventListener('click', keepOneOpen);
+    }, []);
 
     return (
         <aside
             className="col-start-1 col-end-2 w-[250px]
         shadow-[0_0.5rem_1rem_rgba(0,_0,_0,_.1)] pt-[10px] pb-[30px] overflow-x-hidden overflow-y-scroll"
+            ref={sidebarRef}
         >
             <div>
                 <div>
@@ -55,7 +89,16 @@ function Sidebar() {
                             </SubMenu>
                         </MenuItem>
                         <MenuItem Icon={() => <FontAwesomeIcon icon={faComment} />} text="Chat" />
-                        <MenuItem Icon={() => <FontAwesomeIcon icon={faEnvelope} />} text="Email" />
+                        <MenuItem
+                            Icon={() => <FontAwesomeIcon icon={faEnvelope} />}
+                            text="Email"
+                            dropdownHandler={chatsDropdownToggle}
+                        >
+                            <SubMenu toggle={chatsDropdown}>
+                                <MenuItem text="Inbox" />
+                                <MenuItem text="Read Email" />
+                            </SubMenu>
+                        </MenuItem>
                         <MenuItem Icon={calendarIcon} text="Calender" />
                         <MenuItem Icon={contactIcon} text="Contacts" />
                         <MenuItem Icon={newspaperIcon} text="Tasks" />
