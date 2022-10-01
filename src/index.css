@@ -49,3 +49,18 @@
     visibility: visible;
     transform: translate(0, 0);
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #c9c9c9;
+}

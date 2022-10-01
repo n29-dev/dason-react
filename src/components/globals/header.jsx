@@ -35,7 +35,7 @@ function Header() {
     const [notificationDropdown, setNotificationDropdown] = useToggle();
     const [profileDropdown, setProfileDropdown] = useToggle();
     return (
-        <header className="px-6 bg-blue">
+        <header className="px-6 bg-blue col-start-1 col-end-3 shadow-[0_0.2rem_0.5rem_rgba(18,_38,_63,_.3)]">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-20">
                     <div>

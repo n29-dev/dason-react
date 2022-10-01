@@ -1,4 +1,4 @@
-import HomePage from './components/views/homePage';
+import HomePage from './views/homePage';
 
 function App() {
     return <HomePage />;
