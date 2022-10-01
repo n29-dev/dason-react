@@ -1,6 +1,6 @@
 function SubMenu({ children, toggle }) {
     return (
-        <ul className="sidebar-submenu pt-1" data-state={!toggle ? 'hidden' : 'visible'}>
+        <ul className="sidebar-submenu" data-state={!toggle ? 'hidden' : 'visible'}>
             {children}
         </ul>
     );

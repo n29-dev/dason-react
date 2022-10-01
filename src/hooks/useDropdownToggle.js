@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function useDropdownToggle(init = false, duration = 500) {
+function useDropdownToggle(init = false, duration = 300) {
     const [value, setValue] = useState(init);
 
     function dropDownToggle(event) {
@@ -8,33 +8,20 @@ function useDropdownToggle(init = false, duration = 500) {
         const dropDownMenu = targetBtn.nextElementSibling;
         const dropDownState = dropDownMenu.getAttribute('data-state') === 'visible';
         setValue((v) => !v);
-
         dropDownMenu.setAttribute('data-state', `${dropDownState ? 'hidden' : 'visible'}`);
-        targetBtn.style.pointerEvents = 'none';
         dropDownMenu.style.display = 'block';
+        dropDownMenu.style.transition = `height ${duration}ms ease`;
 
-        let maxHeight = dropDownMenu.offsetHeight;
-        let height = maxHeight / 100;
+        if (dropDownState) {
+            dropDownMenu.style.height = '0';
+        } else {
+            dropDownMenu.style.height = `${dropDownMenu.scrollHeight}px`;
+        }
 
-        const interval = setInterval(() => {
-            const condition = dropDownState ? maxHeight <= 0 : height >= maxHeight;
-
-            if (condition) {
-                clearInterval(interval);
-                dropDownMenu.style.height = '';
-                dropDownMenu.style.display = '';
-                targetBtn.style.pointerEvents = '';
-                return;
-            }
-
-            if (dropDownState) {
-                dropDownMenu.style.height = `${maxHeight.toFixed()}px`;
-                maxHeight -= height;
-            } else {
-                dropDownMenu.style.height = `${height.toFixed()}px`;
-                height += maxHeight / 100;
-            }
-        }, (duration / 1000) * 10);
+        setTimeout(() => {
+            dropDownMenu.style.display = '';
+            targetBtn.style.pointerEvents = '';
+        }, duration);
     }
 
     return [

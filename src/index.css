@@ -68,6 +68,7 @@
 aside .sidebar-submenu {
     display: none;
     overflow: hidden;
+    height: 0;
 }
 
 aside .sidebar-submenu[data-state='visible'] {
