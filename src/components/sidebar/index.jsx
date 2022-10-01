@@ -17,13 +17,17 @@ import lockIcon from 'Images/lock.svg';
 import mapsIcon from 'Images/maps.svg';
 import newspaperIcon from 'Images/newspaper.svg';
 import shareIcon from 'Images/share.svg';
+import useDropdownToggle from '../../hooks/useDropdownToggle';
 import Button from '../globals/helpers/button';
 import MenuItem from './menuItems';
+import SubMenu from './subMenu';
 
 function Sidebar() {
+    const [appsDropdown, appsDropdownToggle] = useDropdownToggle();
+
     return (
         <aside
-            className="col-start-1 col-end-2 w-[250px] w-full 
+            className="col-start-1 col-end-2 w-[250px]
         shadow-[0_0.5rem_1rem_rgba(0,_0,_0,_.1)] pt-[10px] pb-[30px] overflow-x-hidden overflow-y-scroll"
         >
             <div>
@@ -36,7 +40,20 @@ function Sidebar() {
                 <div>
                     <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium">Apps</h3>
                     <ul>
-                        <MenuItem Icon={cartIcon} text="Ecommerce" />
+                        <MenuItem Icon={cartIcon} text="Ecommerce" dropdownHandler={appsDropdownToggle}>
+                            <SubMenu toggle={appsDropdown}>
+                                <MenuItem text="Products" />
+                                <MenuItem text="Product Detail" />
+                                <MenuItem text="Order" />
+                                <MenuItem text="Customer" />
+                                <MenuItem text="Cart" />
+                                <MenuItem text="Checkout" />
+                                <MenuItem text="Shop" />
+                                <MenuItem text="Add Product" />
+                                <MenuItem text="Seller" />
+                                <MenuItem text="Seller Details" />
+                            </SubMenu>
+                        </MenuItem>
                         <MenuItem Icon={() => <FontAwesomeIcon icon={faComment} />} text="Chat" />
                         <MenuItem Icon={() => <FontAwesomeIcon icon={faEnvelope} />} text="Email" />
                         <MenuItem Icon={calendarIcon} text="Calender" />

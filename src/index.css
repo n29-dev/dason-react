@@ -64,3 +64,22 @@
 ::-webkit-scrollbar-thumb {
     background: #c9c9c9;
 }
+
+aside .sidebar-submenu {
+    display: none;
+    overflow: hidden;
+}
+
+aside .sidebar-submenu[data-state='visible'] {
+    display: block;
+}
+
+aside li > *.active {
+    @apply text-blue;
+}
+
+aside .sidebar-submenu li > * {
+    padding-left: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
