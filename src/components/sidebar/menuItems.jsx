@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function MenuItem({ text, Icon, children, badge, dropdownHandler }) {
     return (
-        <li>
+        <li className="relative">
             <button
                 className={` ${
                     dropdownHandler && 'dropdown-btn'
@@ -14,23 +14,23 @@ function MenuItem({ text, Icon, children, badge, dropdownHandler }) {
             >
                 {/* icon */}
                 {Icon && (
-                    <span className="inline-block w-[18px] mr-2 text-dark-400 text-[16px]">
+                    <span className="inline-block w-[18px] mr-2 text-dark-400 text-[16px] flex-shrink-0">
                         <Icon />
                     </span>
                 )}
-                <span>{text}</span>
+                <span className="menu-title">{text}</span>
                 {/* badge */}
                 {badge && (
                     <span
                         className="bg-[#34c38f40] text-[10px] font-medium py-[2px] px-[6px] 
-                text-[#34c38f] rounded-lg absolute right-6 top-[50%] translate-y-[-50%]"
+                text-[#34c38f] rounded-lg absolute right-6 top-[50%] translate-y-[-50%] notification-badge"
                     >
                         {badge}
                     </span>
                 )}
                 {/* dropdown icon */}
                 {dropdownHandler && (
-                    <span className="absolute right-6 top-[50%] translate-y-[-50%]">
+                    <span className="absolute right-6 top-[50%] translate-y-[-50%] dropdown-icon">
                         <FontAwesomeIcon icon={faAngleRight} />
                     </span>
                 )}

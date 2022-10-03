@@ -27,27 +27,38 @@ import GridIcon from 'Images/grid-icon.svg';
 import Logo from 'Images/logo-sm.svg';
 import UserAvatar from 'Images/users/avatar-1.jpg';
 import userAvatar3 from 'Images/users/avatar-3.jpg';
+import { useDispatch } from 'react-redux';
+import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import useToggle from '../../hooks/useToggle';
+import { closeAll } from '../sidebar';
 
 function Header() {
     const [languageDropdown, setLanguageDropdown] = useToggle();
     const [appsDropdown, setAppsDropdown] = useToggle();
     const [notificationDropdown, setNotificationDropdown] = useToggle();
     const [profileDropdown, setProfileDropdown] = useToggle();
+    const dispatch = useDispatch();
     return (
         <header className="px-6 bg-blue col-start-1 col-end-3 shadow-[0_0.2rem_0.5rem_rgba(18,_38,_63,_.3)]">
             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-20">
-                    <div>
+                <div className="flex items-center">
+                    <div className="pr-20 logo-container">
                         <a className="inline-flex items-center gap-[5px] text-white h-[70px]" href="#">
                             <span className="w-6 h-6 inline-block">
                                 <Logo />
                             </span>
-                            <span className="font-bold text-lg uppercase">Dason</span>
+                            <span className="font-bold text-lg uppercase logo-text">Dason</span>
                         </a>
                     </div>
-                    <div>
-                        <button className="p-2 text-white h-[70px]" type="button">
+                    <div className="pr-20">
+                        <button
+                            className="p-2 text-white h-[70px]"
+                            type="button"
+                            onClick={() => {
+                                closeAll();
+                                dispatch(toggleSidebar());
+                            }}
+                        >
                             <FontAwesomeIcon icon={faBars} />
                         </button>
                     </div>

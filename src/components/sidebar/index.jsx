@@ -24,7 +24,6 @@ import MenuItem from './menuItems';
 import SubMenu from './subMenu';
 
 // dropdown buttons
-
 let dropdownBtns = [];
 
 function keepOneOpen(event) {
@@ -48,7 +47,15 @@ function keepOneOpen(event) {
     }
 }
 
-function Sidebar() {
+function closeAll() {
+    dropdownBtns.forEach((btn) => {
+        if (btn.nextElementSibling.getAttribute('data-state') === 'visible') {
+            btn.click();
+        }
+    });
+}
+
+function Sidebar({ open }) {
     const [appsDropdown, appsDropdownToggle] = useDropdownToggle();
     const [chatsDropdown, chatsDropdownToggle] = useDropdownToggle();
     const sidebarRef = useRef();
@@ -60,21 +67,25 @@ function Sidebar() {
 
     return (
         <aside
-            className="col-start-1 col-end-2 w-[250px]
-        shadow-[0_0.5rem_1rem_rgba(0,_0,_0,_.1)] pt-[10px] pb-[30px] overflow-x-hidden overflow-y-scroll"
+            className={`col-start-1 col-end-2 w-[250px]
+            shadow-[0_0.5rem_1rem_rgba(0,_0,_0,_.1)] pt-[10px] pb-[30px] ${
+                open ? 'verflow-x-hidden overflow-y-scroll' : ''
+            } `}
             ref={sidebarRef}
+            id="sidebar"
+            data-state={open ? 'open' : 'collapsed'}
         >
             <div>
                 <div>
-                    <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium">Menu</h3>
+                    <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium menu-catagory-title">Menu</h3>
                     <ul>
                         <MenuItem Icon={houseIcon} text="Dashboard" badge="9+" />
                     </ul>
                 </div>
                 <div>
-                    <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium">Apps</h3>
+                    <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium menu-catagory-title">Apps</h3>
                     <ul>
-                        <MenuItem Icon={cartIcon} text="Ecommerce" dropdownHandler={appsDropdownToggle}>
+                        <MenuItem Icon={cartIcon} text="Ecommerce" dropdownHandler={open ? appsDropdownToggle : null}>
                             <SubMenu toggle={appsDropdown}>
                                 <MenuItem text="Products" />
                                 <MenuItem text="Product Detail" />
@@ -92,7 +103,7 @@ function Sidebar() {
                         <MenuItem
                             Icon={() => <FontAwesomeIcon icon={faEnvelope} />}
                             text="Email"
-                            dropdownHandler={chatsDropdownToggle}
+                            dropdownHandler={open ? chatsDropdownToggle : null}
                         >
                             <SubMenu toggle={chatsDropdown}>
                                 <MenuItem text="Inbox" />
@@ -105,7 +116,7 @@ function Sidebar() {
                     </ul>
                 </div>
                 <div>
-                    <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium">Pages</h3>
+                    <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium menu-catagory-title">Pages</h3>
                     <ul>
                         <MenuItem Icon={lockIcon} text="Authentication" />
                         <MenuItem Icon={() => <FontAwesomeIcon icon={faFileLines} />} text="Pages" />
@@ -113,7 +124,7 @@ function Sidebar() {
                     </ul>
                 </div>
                 <div>
-                    <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium">Components</h3>
+                    <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium menu-catagory-title">Components</h3>
                     <ul>
                         <MenuItem Icon={giftIcon} text="Extended" />
                         <MenuItem Icon={() => <FontAwesomeIcon icon={faFileLines} />} text="Pages" />
@@ -126,7 +137,7 @@ function Sidebar() {
                         <MenuItem Icon={shareIcon} text="Multilevel" />
                     </ul>
                 </div>
-                <div className="mx-6 mt-12">
+                <div className="mx-6 mt-12 promotion-box">
                     <div className="bg-[#e8f2fd] text-center p-[20px] rounded-sm">
                         <img className="inline-block" src={giftBox} alt="" />
                         <div className="mt-4">
@@ -144,3 +155,6 @@ function Sidebar() {
 }
 
 export default Sidebar;
+
+export { closeAll };
+// eslint-disable-next-line prettier/prettier

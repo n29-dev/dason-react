@@ -13,7 +13,7 @@ function useDropdownToggle(init = false, duration = 300) {
         dropDownMenu.style.transition = `height ${duration}ms ease`;
 
         if (dropDownState) {
-            dropDownMenu.style.height = '0';
+            dropDownMenu.style.height = '';
         } else {
             dropDownMenu.style.height = `${dropDownMenu.scrollHeight}px`;
         }
