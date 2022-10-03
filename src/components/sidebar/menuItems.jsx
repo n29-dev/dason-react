@@ -14,7 +14,7 @@ function MenuItem({ text, Icon, children, badge, dropdownHandler }) {
             >
                 {/* icon */}
                 {Icon && (
-                    <span className="inline-block w-[18px] mr-2 text-dark-400 text-[16px] flex-shrink-0">
+                    <span className="inline-block w-[18px] mr-2 text-[16px] flex-shrink-0">
                         <Icon />
                     </span>
                 )}
