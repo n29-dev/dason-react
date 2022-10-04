@@ -38,31 +38,28 @@
         font-weight: 400;
         color: #545a6d;
     }
-    body {
+    /* Width */
+    ::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #c9c9c9;
     }
 }
 
-/* custom css */
+/*--- custom css ---*/
 
 .h-dropdown.active {
     opacity: 1;
     visibility: visible;
     transform: translate(0, 0);
-}
-
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #c9c9c9;
 }
 
 .sidebar-submenu {
@@ -102,19 +99,39 @@
 
 #sidebar[data-state='collapsed'] .sidebar-submenu {
     display: block;
-    height: 100%;
-    visibility: visible;
-    opacity: 1;
+    min-width: 200px;
+    height: max-content;
     position: absolute;
+    left: 100%;
+    top: 0;
     background: #fff;
-    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 10%);
-    right: 100%;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    transform: translateY(25px);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: 300ms ease;
 }
 
-#sidebar[data-state='collapsed'] .sidebar-submenu .menu-title {
-    pointer-events: all;
-    transform: translateX(0);
+#sidebar[data-state='collapsed'] .dropdown-item:hover > .sidebar-submenu {
+    transform: translateY(0px);
     opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+#sidebar[data-state='collapsed'] .dropdown-item:hover > button {
+    @apply text-blue bg-white-400;
+}
+
+#sidebar[data-state='collapsed'] .sidebar-submenu > li > button {
+    padding-left: 24px;
+}
+
+#sidebar[data-state='collapsed'] .sidebar-submenu > li > button > .menu-title {
+    z-index: 99;
+    display: block;
 }
 
 .dason-inner[data-sidebar-state='collapsed'] .logo-container {
