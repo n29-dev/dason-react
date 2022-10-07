@@ -18,9 +18,9 @@ module.exports = {
         static: {
             directory: path.resolve(__dirname, 'dist'),
         },
+        hot: true,
         open: true,
         compress: true,
-        hot: true,
     },
 
     module: {

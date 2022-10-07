@@ -8,12 +8,14 @@ function Layout({ children }) {
     return (
         <div className="dason-main-wrapper">
             <div
-                className={`dason-inner grid auto grid-cols-[auto,_auto] h-[100vh] ${open ? 'overflow-hidden' : ''}`}
+                className={`dason-inner grid auto h-[100vh] grid-cols-[auto,_1fr] ${open ? 'overflow-hidden' : ''}`}
                 data-sidebar-state={open ? 'open' : 'collapsed'}
             >
                 <Header />
                 <Sidebar open={open} />
-                <main className="col-start-2 col-end-3">{children}</main>
+                <main className="col-start-2 col-end-3 bg-[#f4f5f8] p-6 overflow-x-hidden overflow-y-scroll">
+                    {children}
+                </main>
             </div>
         </div>
     );

@@ -1,37 +1,46 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function useDropdownToggle(init = false, duration = 300) {
+function useToggle(init = false, options = {}) {
     const [value, setValue] = useState(init);
 
-    function dropDownToggle(event) {
-        const targetBtn = event.currentTarget;
-        const dropDownMenu = targetBtn.nextElementSibling;
-        const dropDownState = dropDownMenu.getAttribute('data-state') === 'visible';
-        setValue((v) => !v);
-        dropDownMenu.setAttribute('data-state', `${dropDownState ? 'hidden' : 'visible'}`);
-        dropDownMenu.style.display = 'block';
-        dropDownMenu.style.transition = `height ${duration}ms ease`;
-
-        if (dropDownState) {
-            dropDownMenu.style.height = '';
-        } else {
-            dropDownMenu.style.height = `${dropDownMenu.scrollHeight}px`;
+    const toggle = (event) => {
+        if (event) {
+            event.preventDefault();
         }
+        setValue((v) => !v);
+    };
 
-        setTimeout(() => {
-            dropDownMenu.style.display = '';
-            targetBtn.style.pointerEvents = '';
-        }, duration);
-    }
+    const findClick = (event) => {
+        event.preventDefault();
+        const { current: currentElement } = options.element;
+        if (
+            currentElement.contains(event.target) ||
+            currentElement.isSameNode(event.target) ||
+            currentElement.previousElementSibling.contains(event.target) ||
+            currentElement.previousElementSibling.isSameNode(event.target)
+        ) {
+            return;
+        }
+        toggle();
+    };
+
+    useEffect(() => {
+        if (options.outClickClose && value) {
+            window.addEventListener('click', findClick);
+        }
+        return () => {
+            window.removeEventListener('click', findClick);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value]);
 
     return [
         value,
         {
             setValue,
-            toggle: dropDownToggle,
-            get: () => value,
+            toggle,
         },
     ];
 }
 
-export default useDropdownToggle;
+export default useToggle;

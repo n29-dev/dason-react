@@ -37,7 +37,9 @@
         font-family: 'Be Vietnam Pro', sans-serif;
         font-weight: 400;
         color: #545a6d;
+        font-size: 13px;
     }
+
     /* Width */
     ::-webkit-scrollbar {
         width: 3px;
@@ -54,7 +56,18 @@
     }
 }
 
-/*--- custom css ---*/
+@layer components {
+    .component-default {
+        box-shadow: 0 0.25rem 0.75rem rgb(18 38 63 / 0.08);
+        @apply p-[20px] bg-white rounded;
+    }
+    .button {
+        @apply py-2 px-3 text-[13px] inline-flex gap-3 text-white bg-blue rounded-md leading-[20px] 
+        items-center justify-center border-[1px] border-[transparent] active:border-[#8dc6ff] focus:border-[#8dc6ff];
+    }
+}
+
+/* sidebar */
 
 .h-dropdown.active {
     opacity: 1;
@@ -97,6 +110,10 @@
     display: none;
 }
 
+#sidebar[data-state='collapsed'] .menu-items > li > button {
+    justify-content: center;
+}
+
 #sidebar[data-state='collapsed'] .sidebar-submenu {
     display: block;
     min-width: 200px;
@@ -111,7 +128,7 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: 300ms ease;
+    transition: 300ms ease !important;
 }
 
 #sidebar[data-state='collapsed'] .dropdown-item:hover > .sidebar-submenu {
@@ -140,4 +157,27 @@
 
 .dason-inner[data-sidebar-state='collapsed'] .logo-container .logo-text {
     display: none;
+}
+
+/* bread crumb */
+
+.breadcrumb li::after {
+    content: '>';
+    display: inline-block;
+    padding-left: 12px;
+}
+
+.breadcrumb li:last-child::after {
+    display: none;
+}
+
+.donut-tooltip {
+    font-size: 9px;
+    border: 0;
+    outline: 0;
+}
+
+/* buttons */
+button[data-active-style='blue'].active {
+    @apply bg-blue-100 text-blue hover:bg-blue hover:text-white;
 }

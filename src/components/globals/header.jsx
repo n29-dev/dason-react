@@ -27,19 +27,41 @@ import GridIcon from 'Images/grid-icon.svg';
 import Logo from 'Images/logo-sm.svg';
 import UserAvatar from 'Images/users/avatar-1.jpg';
 import userAvatar3 from 'Images/users/avatar-3.jpg';
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
-import useToggle from '../../hooks/useToggle';
+import useDropdownToggle from '../../hooks/useDropdownToggle';
 import { closeAll } from '../sidebar';
 
 function Header() {
-    const [languageDropdown, setLanguageDropdown] = useToggle();
-    const [appsDropdown, setAppsDropdown] = useToggle();
-    const [notificationDropdown, setNotificationDropdown] = useToggle();
-    const [profileDropdown, setProfileDropdown] = useToggle();
+    const languageDropdownRef = useRef();
+    const appsDropdownRef = useRef();
+    const notificationDropdownRef = useRef();
+    const profileDropdownRef = useRef();
+
+    const [languageDropdown, setLanguageDropdown] = useDropdownToggle(false, {
+        outClickClose: true,
+        element: languageDropdownRef,
+    });
+    const [appsDropdown, setAppsDropdown] = useDropdownToggle(false, {
+        outClickClose: true,
+        element: appsDropdownRef,
+    });
+    const [notificationDropdown, setNotificationDropdown] = useDropdownToggle(false, {
+        outClickClose: true,
+        element: notificationDropdownRef,
+    });
+    const [profileDropdown, setProfileDropdown] = useDropdownToggle(false, {
+        outClickClose: true,
+        element: profileDropdownRef,
+    });
+
     const dispatch = useDispatch();
     return (
-        <header className="px-6 bg-blue col-start-1 col-end-3 shadow-[0_0.2rem_0.5rem_rgba(18,_38,_63,_.3)]">
+        <header
+            className="px-6 bg-blue col-start-1 col-end-3 
+        shadow-[0_0.2rem_0.5rem_rgba(18,_38,_63,_.3)] sticky top-0 z-50"
+        >
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <div className="pr-20 logo-container">
@@ -79,6 +101,7 @@ function Header() {
                     </div>
                 </div>
                 <div className="flex items-center gap-1">
+                    {/* language dropdown */}
                     <div className="relative">
                         <button
                             className={`py-1 px-[10px] h-[70px] ${languageDropdown && 'bg-[#ffffff0d]'}`}
@@ -90,7 +113,10 @@ function Header() {
                         <div
                             className={`h-dropdown bg-white p-1 rounded min-w-[160px] 
                         absolute top-full shadow-[0_0.25rem_0.75rem_rgba(18,38,63,.08)] right-0
-                        invisible opacity-0 translate-y-5 transition-all duration-200 ${languageDropdown && 'active'}`}
+                        invisible z-10 opacity-0 translate-y-5 transition-all duration-200 ${
+                            languageDropdown && 'active'
+                        }`}
+                            ref={languageDropdownRef}
                         >
                             <ul>
                                 <li className="px-4 py-1 hover:bg-white-400">
@@ -122,6 +148,7 @@ function Header() {
                             <FontAwesomeIcon icon={faMoon} />
                         </button>
                     </div>
+                    {/* apps dropdown */}
                     <div className="relative">
                         <button
                             className={`py-1 px-[10px] h-[70px] text-white-500 text-xl ${
@@ -135,7 +162,8 @@ function Header() {
                         <div
                             className={`h-dropdown bg-white p-1 rounded min-w-[310px] 
                         absolute top-full shadow-[0_0.25rem_0.75rem_rgba(18,38,63,.08)] right-0
-                        invisible opacity-0 translate-y-5 transition-all duration-200 ${appsDropdown && 'active'}`}
+                        invisible opacity-0 z-10 translate-y-5 transition-all duration-200 ${appsDropdown && 'active'}`}
+                            ref={appsDropdownRef}
                         >
                             <div className="grid grid-cols-3 p-2">
                                 <div className="text-center py-4 hover:bg-[#f8f9fa]">
@@ -165,6 +193,7 @@ function Header() {
                             </div>
                         </div>
                     </div>
+                    {/* notificaton dropdown */}
                     <div className="relative">
                         <button
                             className={`py-1 px-[10px] h-[70px] text-white-500 text-xl ${
@@ -178,9 +207,10 @@ function Header() {
                         <div
                             className={`h-dropdown bg-white p-1 rounded min-w-[320px] 
                         absolute top-full shadow-[0_0.25rem_0.75rem_rgba(18,38,63,.08)] right-0
-                        invisible opacity-0 translate-y-5 transition-all duration-200 ${
+                        invisible opacity-0 z-10 translate-y-5 transition-all duration-200 ${
                             notificationDropdown && 'active'
                         }`}
+                            ref={notificationDropdownRef}
                         >
                             <div>
                                 <div className="flex items-center justify-between p-4">
@@ -285,11 +315,13 @@ function Header() {
                             </div>
                         </div>
                     </div>
+                    {/* settings */}
                     <div>
                         <button className="py-1 px-[10px] h-[70px] text-white-500 text-xl" type="button">
                             <FontAwesomeIcon icon={faGear} />
                         </button>
                     </div>
+                    {/* profile dropdown */}
                     <div className="dropdown relative">
                         <button
                             className="flex items-center bg-[#ffffff0a] p-3 border-l-2 border-r-2 
@@ -306,7 +338,10 @@ function Header() {
                         <div
                             className={`h-dropdown bg-white p-1 rounded min-w-[160px] 
                         absolute top-full shadow-[0_0.25rem_0.75rem_rgba(18,38,63,.08)] right-0
-                        invisible opacity-0 translate-y-5 transition-all duration-200 ${profileDropdown && 'active'}`}
+                        invisible opacity-0 z-10 translate-y-5 transition-all duration-200 ${
+                            profileDropdown && 'active'
+                        }`}
+                            ref={profileDropdownRef}
                         >
                             <ul>
                                 <li>
