@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-function useToggle(init = false, options = {}) {
+function useDropdownToggle(init = false, options = {}) {
     const [value, setValue] = useState(init);
+    const dropdownRef = useRef();
 
     const toggle = (event) => {
         if (event) {
@@ -12,7 +13,8 @@ function useToggle(init = false, options = {}) {
 
     const findClick = (event) => {
         event.preventDefault();
-        const { current: currentElement } = options.element;
+        // const { current: currentElement } = options.element;
+        const { current: currentElement } = dropdownRef;
         if (
             currentElement.contains(event.target) ||
             currentElement.isSameNode(event.target) ||
@@ -34,6 +36,17 @@ function useToggle(init = false, options = {}) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
+    if (options.outClickClose) {
+        return [
+            value,
+            {
+                setValue,
+                toggle,
+            },
+            dropdownRef,
+        ];
+    }
+
     return [
         value,
         {
@@ -43,4 +56,4 @@ function useToggle(init = false, options = {}) {
     ];
 }
 
-export default useToggle;
+export default useDropdownToggle;

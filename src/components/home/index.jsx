@@ -1,19 +1,33 @@
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+/* eslint-disable import/no-unresolved */
+import { faAngleDown, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CustomterAvatar1 from 'Images/users/avatar-2.jpg';
+import CustomterAvatar2 from 'Images/users/avatar-4.jpg';
+import CustomterAvatar3 from 'Images/users/avatar-5.jpg';
+import CustomterAvatar4 from 'Images/users/avatar-6.jpg';
+import CustomterAvatar5 from 'Images/users/avatar-7.jpg';
+import CustomterAvatar6 from 'Images/users/avatar-8.jpg';
+import CustomterAvatar7 from 'Images/users/avatar-9.jpg';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateMarketData } from '../../features/market/marketSlice';
+import useDropdownToggle from '../../hooks/useDropdownToggle';
 import BarChart from '../charts/positiveNegativeBarChart';
 import Layout from '../globals/layout';
+import Customer from './customer';
 import ShopOverview from './shopOverview';
 
 function Home() {
+    let marketDatatoggleBtns;
+
+    const marketButtonsRef = useRef();
+    const [customerListDropdown, setcustomerListDropdown, customerListDropdownRef] = useDropdownToggle(false, {
+        outClickClose: true,
+    });
+
     const dispatch = useDispatch();
     const { sales: salesData } = useSelector((store) => store);
     const { market: marketData } = useSelector((store) => store);
-    const marketButtonsRef = useRef();
-    const chartContainer = useRef();
-    let marketDatatoggleBtns;
 
     const periods = {
         all: 0.2,
@@ -98,7 +112,7 @@ function Home() {
                         </div>
                     </div>
                     <div className="flex justify-between items-end gap-10">
-                        <div className="w-[70%] h-[400px]" ref={chartContainer}>
+                        <div className="w-[70%] h-[400px]">
                             <BarChart data={marketData} />
                         </div>
                         <div className="w-[30%] pb-[50px]">
@@ -195,6 +209,77 @@ function Home() {
                                     </span>
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                {/* sales by location */}
+                <div></div>
+                {/* customer list / selling products */}
+                <div className="grid grid-cols-[35%,_65%]">
+                    {/* customer list */}
+                    <div className="component-default p-0">
+                        <div className="flex justify-between items-start p-[20px] border-[#e9e9ef]">
+                            <h2 className="text-base text-dark-600 font-semibold">Customer List</h2>
+                            <div className="relative">
+                                <button type="button" onClick={setcustomerListDropdown.toggle}>
+                                    All Members
+                                    <span className="text-[12px] inline-block ml-1">
+                                        <FontAwesomeIcon icon={faAngleDown} />
+                                    </span>
+                                </button>
+                                <div
+                                    className={`dropdown top-[calc(100%_+_8px)] ${
+                                        customerListDropdown ? 'active' : ''
+                                    }`}
+                                    ref={customerListDropdownRef}
+                                >
+                                    <ul>
+                                        <li>
+                                            <button className="dropdown-item" type="button">
+                                                Members
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button className="dropdown-item" type="button">
+                                                New Members
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button className="dropdown-item" type="button">
+                                                Old Members
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="h-[380px]  overflow-y-scroll">
+                            <ul>
+                                <li>
+                                    <Customer name="Randy Matthews" email="Randy@gmail.com" img={CustomterAvatar1} />
+                                </li>
+                                <li>
+                                    <Customer name="Vernon Wood" email="Vernon@gmail.com" img={CustomterAvatar2} />
+                                </li>
+                                <li>
+                                    <Customer name="Howard Rhoades" email="Howard@gmail.com" img={CustomterAvatar3} />
+                                </li>
+                                <li>
+                                    <Customer name="Arthur Zurcher" email="Aurthor@gmail.com" img={CustomterAvatar3} />
+                                </li>
+                                <li>
+                                    <Customer name="Angela Palmer" email="Palmar@gmail.com" img={CustomterAvatar4} />
+                                </li>
+                                <li>
+                                    <Customer name="Dorothy Wimson" email="Dorothy@gmail.com" img={CustomterAvatar5} />
+                                </li>
+                                <li>
+                                    <Customer name="Vernon Wood" email="Vernon@gmail.com" img={CustomterAvatar6} />
+                                </li>
+                                <li>
+                                    <Customer name="Vernon Wood" email="Vernon@gmail.com" img={CustomterAvatar7} />
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

@@ -65,16 +65,23 @@
         @apply py-2 px-3 text-[13px] inline-flex gap-3 text-white bg-blue rounded-md leading-[20px] 
         items-center justify-center border-[1px] border-[transparent] active:border-[#8dc6ff] focus:border-[#8dc6ff];
     }
+
+    .dropdown {
+        @apply border divide-solid border-[#e9e9ef] rounded shadow-[0_0.25rem_0.75rem_rgba(18,38,63,.08)] absolute top-full right-0 min-w-[160px] invisible opacity-0 z-10 translate-y-5 transition-all duration-200 p-1 bg-white;
+    }
+
+    .dropdown-item {
+        @apply block w-full text-dark-500 px-4 py-[6px] hover:bg-white-400 text-left;
+    }
 }
 
-/* sidebar */
-
-.h-dropdown.active {
+.dropdown.active {
     opacity: 1;
     visibility: visible;
     transform: translate(0, 0);
 }
 
+/* sidebar */
 .sidebar-submenu {
     display: none;
     overflow: hidden;
