@@ -1,6 +1,13 @@
 /* eslint-disable import/no-unresolved */
 import { faAngleDown, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProductImg1 from 'Images/product/img-1.png';
+import ProductImg2 from 'Images/product/img-2.png';
+import ProductImg3 from 'Images/product/img-3.png';
+import ProductImg4 from 'Images/product/img-4.png';
+import ProductImg5 from 'Images/product/img-5.png';
+import ProductImg6 from 'Images/product/img-6.png';
+import ProductImg7 from 'Images/product/img-7.png';
 import CustomterAvatar1 from 'Images/users/avatar-2.jpg';
 import CustomterAvatar2 from 'Images/users/avatar-4.jpg';
 import CustomterAvatar3 from 'Images/users/avatar-5.jpg';
@@ -15,6 +22,7 @@ import useDropdownToggle from '../../hooks/useDropdownToggle';
 import BarChart from '../charts/positiveNegativeBarChart';
 import Layout from '../globals/layout';
 import Customer from './customer';
+import Product from './product';
 import ShopOverview from './shopOverview';
 
 function Home() {
@@ -215,10 +223,13 @@ function Home() {
                 {/* sales by location */}
                 <div></div>
                 {/* customer list / selling products */}
-                <div className="grid grid-cols-[35%,_65%]">
+                <div className="grid grid-cols-[35%,_65%] gap-6 mr-6">
                     {/* customer list */}
                     <div className="component-default p-0">
-                        <div className="flex justify-between items-start p-[20px] border-[#e9e9ef]">
+                        <div
+                            className="flex justify-between items-start p-[20px] 
+                        border-[#e9e9ef] border-b  divide-solid mb-[20px]"
+                        >
                             <h2 className="text-base text-dark-600 font-semibold">Customer List</h2>
                             <div className="relative">
                                 <button type="button" onClick={setcustomerListDropdown.toggle}>
@@ -280,6 +291,81 @@ function Home() {
                                     <Customer name="Vernon Wood" email="Vernon@gmail.com" img={CustomterAvatar7} />
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                    {/* selling products */}
+                    <div className="component-default p-0">
+                        <div
+                            className="flex justify-between items-start p-[20px] mb-[20px] border-b 
+                        divide-solid border-[#e9e9ef]"
+                        >
+                            <h2 className="text-base text-dark-600 font-semibold">Selling List</h2>
+                        </div>
+                        <div className="h-[380px] overflow-y-scroll px-3">
+                            <table>
+                                <tbody>
+                                    <Product
+                                        img={ProductImg1}
+                                        title="Light blue T-shirt"
+                                        instock={1557}
+                                        price={650}
+                                        rating={4}
+                                        sold={260}
+                                    />
+                                    <Product
+                                        img={ProductImg2}
+                                        title="Half sleeve T-shirt"
+                                        instock={1557}
+                                        price={650}
+                                        rating={2}
+                                        sold={260}
+                                    />
+
+                                    <Product
+                                        img={ProductImg3}
+                                        title="Black Color T-shirt"
+                                        instock={false}
+                                        price={650}
+                                        rating={2}
+                                        sold={260}
+                                    />
+
+                                    <Product
+                                        img={ProductImg4}
+                                        title="Half sleeve T-shirt"
+                                        instock={1557}
+                                        price={650}
+                                        rating={2}
+                                        sold={260}
+                                    />
+
+                                    <Product
+                                        img={ProductImg5}
+                                        title="Hoodie (Blue)"
+                                        instock={false}
+                                        price={650}
+                                        rating={0}
+                                        sold={260}
+                                    />
+
+                                    <Product
+                                        img={ProductImg6}
+                                        title="Half sleeve T-Shirt"
+                                        instock={1557}
+                                        price={650}
+                                        rating={3}
+                                        sold={260}
+                                    />
+                                    <Product
+                                        img={ProductImg7}
+                                        title="Green color T-shirt"
+                                        instock={1557}
+                                        price={650}
+                                        rating={5}
+                                        sold={260}
+                                    />
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
