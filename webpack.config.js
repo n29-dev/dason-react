@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPluin = require('mini-css-extract-plugin');
 /* eslint import/no-unresolved: [2, { caseSensitiveStrict: true }] */
@@ -9,8 +10,7 @@ module.exports = {
     mode: 'development',
     entry: path.resolve(__dirname, 'src/index.jsx'),
     output: {
-        clean: true,
-        path: path.resolve(__dirname, '/dist'),
+        path: path.resolve(__dirname, 'dist'),
         assetModuleFilename: 'images/[hash][ext][query]',
     },
     devtool: 'source-map',
@@ -83,6 +83,9 @@ module.exports = {
 
         new MiniCssExtractPluin({
             filename: 'style.css',
+        }),
+        new Dotenv({
+            systemvars: true,
         }),
     ],
 
