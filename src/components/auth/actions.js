@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 // create new user
@@ -25,4 +25,16 @@ async function updateUserProfile(updateProps, onSuccess = () => {}, onError = ()
     }
 }
 
-export { createNewUser, updateUserProfile };
+// login existing user
+async function logInUser(email, password, onSuccess = () => {}, onError = () => {}) {
+    try {
+        // if user is successfully signedIn onSuccess is invoced
+        await signInWithEmailAndPassword(auth, email, password);
+        onSuccess(auth.currentUser);
+    } catch (error) {
+        // if any error occurs the onError function is invocked
+        onError(error);
+    }
+}
+
+export { createNewUser, updateUserProfile, logInUser };

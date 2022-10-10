@@ -1,7 +1,13 @@
-function Button({ link, type, Icon, text, classes }) {
+import React from 'react';
+
+const Button = React.forwardRef(({ link, type, Icon, text, classes }, ref) => {
     if (link) {
         return (
-            <a className={`py-2 px-3 text-[13px] text-white bg-blue inline-block rounded ${classes || ''}`} href={link}>
+            <a
+                className={`py-2 px-3 text-[13px] text-white bg-blue inline-block rounded ${classes || ''}`}
+                href={link}
+                ref={ref}
+            >
                 {Icon && (
                     <span className="inline-block mr-2">
                         <Icon />
@@ -17,6 +23,7 @@ function Button({ link, type, Icon, text, classes }) {
             className={`py-2 px-3 text-[13px] text-white bg-blue inline-block rounded ${classes || ''}`}
             // eslint-disable-next-line react/button-has-type
             type={type || 'button'}
+            ref={ref}
         >
             {Icon && (
                 <span className="inline-block mr-2">
@@ -26,6 +33,6 @@ function Button({ link, type, Icon, text, classes }) {
             <span>{text}</span>
         </button>
     );
-}
+});
 
 export default Button;
