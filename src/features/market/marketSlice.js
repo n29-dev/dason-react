@@ -47,7 +47,6 @@ const market = createSlice({
                 name: entry.name,
                 uv: entry.uv / payload,
                 pv: entry.pv / payload,
-                amt: entry.amt / payload,
             })),
     },
 });

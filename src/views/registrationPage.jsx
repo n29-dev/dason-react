@@ -1,7 +1,7 @@
 import Register from '../components/auth/register';
 
-function RegisterPage() {
+function RegistrationPage() {
     return <Register />;
 }
 
-export default RegisterPage;
+export default RegistrationPage;

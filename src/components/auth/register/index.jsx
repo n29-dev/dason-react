@@ -5,25 +5,46 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../globals/helpers/button';
 import Input from '../../globals/helpers/input';
-import { createNewUser } from '../actions';
+import { createNewUser, updateUserProfile } from '../actions';
 import AuthLayout from '../authLayout';
 
 function Register() {
     const formRef = useRef();
     const navigate = useNavigate();
 
+    // update user profile
+    function updateUsername(username) {
+        updateUserProfile(
+            {
+                displayName: username,
+            },
+            () => {
+                navigate('/', { replace: true });
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+
     // create new user
     function registerNewUser(event) {
         event.preventDefault();
+
         const email = event.target.email.value;
         const password = event.target.password.value;
+        const username = event.target.username.value;
 
-        createNewUser(email, password, (user) => {
-            console.log(user);
-            navigate('/', {
-                replace: true,
-            });
-        });
+        createNewUser(
+            email,
+            password,
+            () => {
+                updateUsername(username);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
     }
 
     useEffect(() => {

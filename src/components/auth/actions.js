@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 // create new user
@@ -13,5 +13,16 @@ async function createNewUser(email, password, onSuccess = () => {}, onError = ()
     }
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export { createNewUser };
+// update user profile
+async function updateUserProfile(updateProps, onSuccess = () => {}, onError = () => {}) {
+    try {
+        await updateProfile(auth.currentUser, updateProps);
+        // if profile is successfully updated onSuccess is invoced
+        onSuccess(auth.currentUser);
+    } catch (error) {
+        // if any error occurs the onError function is invocked
+        onError(error);
+    }
+}
+
+export { createNewUser, updateUserProfile };
