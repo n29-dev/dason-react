@@ -10,6 +10,7 @@ import AuthLayout from '../authLayout';
 
 function Register() {
     const formRef = useRef();
+    const formSubmitButtonRef = useRef();
     const navigate = useNavigate();
 
     // update user profile
@@ -35,6 +36,10 @@ function Register() {
         const password = event.target.password.value;
         const username = event.target.username.value;
 
+        const submitBtn = formSubmitButtonRef.current;
+        // make submit button disabled
+        submitBtn.disabled = true;
+
         createNewUser(
             email,
             password,
@@ -43,6 +48,8 @@ function Register() {
             },
             (error) => {
                 console.log(error);
+                submitBtn.disabled = false;
+                event.target.reset();
             }
         );
     }
@@ -85,7 +92,7 @@ function Register() {
                     <p className="pb-9 text-left">
                         By registering you agree to the <span className="text-blue">Terms of Use</span>
                     </p>
-                    <Button type="submit" text="Register" classes="block w-full" />
+                    <Button type="submit" text="Register" classes="block w-full" ref={formSubmitButtonRef} />
                 </form>
 
                 <p className="pt-10">

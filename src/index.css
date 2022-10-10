@@ -188,3 +188,7 @@
 button[data-active-style='blue'].active {
     @apply bg-blue-100 text-blue hover:bg-blue hover:text-white;
 }
+button[disabled] {
+    opacity: 0.8;
+    cursor: progress;
+}
