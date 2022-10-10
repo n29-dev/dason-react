@@ -32,6 +32,9 @@ function Home() {
     const [customerListDropdown, setcustomerListDropdown, customerListDropdownRef] = useDropdownToggle(false, {
         outClickClose: true,
     });
+    const [chatOptionDropdown, setChatOptionDropdown, chatOptionDropdownRef] = useDropdownToggle(false, {
+        outClickClose: true,
+    });
 
     const dispatch = useDispatch();
     const { sales: salesData } = useSelector((store) => store);
@@ -368,6 +371,51 @@ function Home() {
                             </table>
                         </div>
                     </div>
+                </div>
+                {/* chats */}
+                <div className="component-default p-0">
+                    <div
+                        className="flex justify-between items-start p-[20px] 
+                        border-[#e9e9ef] border-b  divide-solid mb-[20px]"
+                    >
+                        <h2 className="text-base text-dark-600 font-semibold">Chats</h2>
+                        <div className="relative">
+                            <button type="button" onClick={setChatOptionDropdown.toggle}>
+                                Today
+                                <span className="text-[12px] inline-block ml-1">
+                                    <FontAwesomeIcon icon={faAngleDown} />
+                                </span>
+                            </button>
+                            <div
+                                className={`dropdown top-[calc(100%_+_8px)] ${chatOptionDropdown ? 'active' : ''}`}
+                                ref={chatOptionDropdownRef}
+                            >
+                                <ul>
+                                    <li>
+                                        <button className="dropdown-item" type="button">
+                                            Today
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button className="dropdown-item" type="button">
+                                            Yesterday
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button className="dropdown-item" type="button">
+                                            Last Week
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button className="dropdown-item" type="button">
+                                            Last Month
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div></div>
                 </div>
             </div>
         </Layout>

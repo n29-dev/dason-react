@@ -21,6 +21,7 @@ module.exports = {
         hot: true,
         open: true,
         compress: true,
+        historyApiFallback: true,
     },
 
     module: {
@@ -90,7 +91,7 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: ['.js', '.jsx', '.png', '.svg', 'jpg', 'jpeg'],
+        extensions: ['.js', '.json', '.jsx', '.png', '.svg', 'jpg', 'jpeg'],
         alias: {
             Images: path.resolve(__dirname, 'src/public/assets/images'),
         },

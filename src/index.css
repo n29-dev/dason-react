@@ -138,14 +138,14 @@
     transition: 300ms ease !important;
 }
 
-#sidebar[data-state='collapsed'] .dropdown-item:hover > .sidebar-submenu {
+#sidebar[data-state='collapsed'] .has-dropdown:hover > .sidebar-submenu {
     transform: translateY(0px);
     opacity: 1;
     visibility: visible;
     pointer-events: all;
 }
 
-#sidebar[data-state='collapsed'] .dropdown-item:hover > button {
+#sidebar[data-state='collapsed'] .has-dropdown:hover > button {
     @apply text-blue bg-white-400;
 }
 
