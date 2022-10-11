@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function MenuItem({ text, Icon, children, badge, dropdownHandler }) {
     return (
-        <li className={`${children ? 'relative dropdown-item' : ''}`}>
+        <li className={`${children ? 'relative has-dropdown' : ''}`}>
             <button
                 className={` ${
                     dropdownHandler && 'dropdown-btn'

@@ -305,7 +305,7 @@ function Home() {
                             <h2 className="text-base text-dark-600 font-semibold">Selling List</h2>
                         </div>
                         <div className="h-[380px] overflow-y-scroll px-3">
-                            <table>
+                            <table className="w-full">
                                 <tbody>
                                     <Product
                                         img={ProductImg1}
