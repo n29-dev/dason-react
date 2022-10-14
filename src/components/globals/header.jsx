@@ -12,27 +12,23 @@ import {
     faUser
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import gitBucket from 'Images/brands/bitbucket.png';
-import dribbleIcon from 'Images/brands/dribbble.png';
-import dropBoxIcon from 'Images/brands/dropbox.png';
-import githubIcon from 'Images/brands/github.png';
-import mailchimpIcon from 'Images/brands/mail_chimp.png';
-import slackIcon from 'Images/brands/slack.png';
-import germanFlag from 'Images/flags/germany.jpg';
-import italianFlag from 'Images/flags/italy.jpg';
-import russianFlag from 'Images/flags/russia.jpg';
-import spainFlag from 'Images/flags/spain.jpg';
-import usFlag from 'Images/flags/us.jpg';
-import GridIcon from 'Images/grid-icon.svg';
 import Logo from 'Images/logo-sm.svg';
 import UserAvatar from 'Images/users/avatar-1.jpg';
 import userAvatar3 from 'Images/users/avatar-3.jpg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
+import * as Images from '../../images';
+import { logOutUser } from '../auth/actions';
 import { closeAll } from '../sidebar';
 
 function Header() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { displayName } = useSelector((store) => store.user);
+
     const [languageDropdown, setLanguageDropdown, languageDropdownRef] = useDropdownToggle(false, {
         outClickClose: true,
     });
@@ -46,7 +42,17 @@ function Header() {
         outClickClose: true,
     });
 
-    const dispatch = useDispatch();
+    function signOut() {
+        logOutUser(
+            () => {
+                navigate('/login', { replace: true });
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+
     return (
         <header
             className="px-6 bg-blue col-start-1 col-end-3 
@@ -98,29 +104,29 @@ function Header() {
                             type="button"
                             onClick={setLanguageDropdown.toggle}
                         >
-                            <img className="w-6 align-middle" src={usFlag} alt="" />
+                            <img className="w-6 align-middle" src={Images.usFlag} alt="" />
                         </button>
                         <div className={`dropdown ${languageDropdown && 'active'}`} ref={languageDropdownRef}>
                             <ul>
                                 <li className="px-4 py-1 hover:bg-white-400">
-                                    <img className="w-[18px] inline-block mr-[6px]" src={usFlag} alt="" />
+                                    <img className="w-[18px] inline-block mr-[6px]" src={Images.usFlag} alt="" />
                                     <span className="text-[13px] text-[#2b3940]">USA</span>
                                 </li>
 
                                 <li className="px-4 py-1 hover:bg-white-400">
-                                    <img className="w-[18px] inline-block mr-[6px]" src={germanFlag} alt="" />
+                                    <img className="w-[18px] inline-block mr-[6px]" src={Images.germanFlag} alt="" />
                                     <span className="text-[13px] text-[#2b3940]">Germany</span>
                                 </li>
                                 <li className="px-4 py-1 hover:bg-white-400">
-                                    <img className="w-[18px] inline-block mr-[6px]" src={italianFlag} alt="" />
+                                    <img className="w-[18px] inline-block mr-[6px]" src={Images.italianFlag} alt="" />
                                     <span className="text-[13px] text-[#2b3940]">Italy</span>
                                 </li>
                                 <li className="px-4 py-1 hover:bg-white-400">
-                                    <img className="w-[18px] inline-block mr-[6px]" src={spainFlag} alt="" />
+                                    <img className="w-[18px] inline-block mr-[6px]" src={Images.spainFlag} alt="" />
                                     <span className="text-[13px] text-[#2b3940]">Spain</span>
                                 </li>
                                 <li className="px-4 py-1 hover:bg-white-400">
-                                    <img className="w-[18px] inline-block mr-[6px]" src={russianFlag} alt="" />
+                                    <img className="w-[18px] inline-block mr-[6px]" src={Images.russianFlag} alt="" />
                                     <span className="text-[13px] text-[#2b3940]">Russia</span>
                                 </li>
                             </ul>
@@ -140,32 +146,32 @@ function Header() {
                             type="button"
                             onClick={setAppsDropdown.toggle}
                         >
-                            <GridIcon />
+                            <Images.GridIcon />
                         </button>
                         <div className={`dropdown min-w-[310px] ${appsDropdown && 'active'}`} ref={appsDropdownRef}>
                             <div className="grid grid-cols-3 p-2">
                                 <div className="text-center py-4 hover:bg-[#f8f9fa]">
-                                    <img className="h-6 mb-2 mx-auto" src={githubIcon} alt="" />
+                                    <img className="h-6 mb-2 mx-auto" src={Images.githubIcon} alt="" />
                                     <span className="text-[13px]">GitHub</span>
                                 </div>
                                 <div className="text-center py-4 hover:bg-[#f8f9fa]">
-                                    <img className="h-6 mb-2 mx-auto" src={gitBucket} alt="" />
+                                    <img className="h-6 mb-2 mx-auto" src={Images.gitBucket} alt="" />
                                     <span className="text-[13px]">GitBucket</span>
                                 </div>
                                 <div className="text-center py-4 hover:bg-[#f8f9fa]">
-                                    <img className="h-6 mb-2 mx-auto" src={dribbleIcon} alt="" />
+                                    <img className="h-6 mb-2 mx-auto" src={Images.dribbleIcon} alt="" />
                                     <span className="text-[13px]">Dribble</span>
                                 </div>
                                 <div className="text-center py-4 hover:bg-[#f8f9fa]">
-                                    <img className="h-6 mb-2 mx-auto" src={dropBoxIcon} alt="" />
+                                    <img className="h-6 mb-2 mx-auto" src={Images.dropBoxIcon} alt="" />
                                     <span className="text-[13px]">Dropbox</span>
                                 </div>
                                 <div className="text-center py-4 hover:bg-[#f8f9fa]">
-                                    <img className="h-6 mb-2 mx-auto" src={mailchimpIcon} alt="" />
+                                    <img className="h-6 mb-2 mx-auto" src={Images.mailchimpIcon} alt="" />
                                     <span className="text-[13px]">Mailchimp</span>
                                 </div>
                                 <div className="text-center py-4 hover:bg-[#f8f9fa]">
-                                    <img className="h-6 mb-2 mx-auto" src={slackIcon} alt="" />
+                                    <img className="h-6 mb-2 mx-auto" src={Images.slackIcon} alt="" />
                                     <span className="text-[13px]">Slack</span>
                                 </div>
                             </div>
@@ -304,7 +310,7 @@ function Header() {
                             onClick={setProfileDropdown.toggle}
                         >
                             <img className="w-9 h-9 rounded-full border-2 border-[#ffffff40]" src={UserAvatar} alt="" />
-                            <span>Paul K.</span>
+                            <span>{displayName}</span>
                             <span>
                                 <FontAwesomeIcon icon={faAngleDown} />
                             </span>
@@ -331,16 +337,18 @@ function Header() {
                                     </a>
                                 </li>
                                 <li>
-                                    <a
-                                        className="block text-dark-600  px-4 py-3
+                                    <button
+                                        type="button"
+                                        className="block text-dark-600  px-4 py-3 w-full text-left
                                          hover:bg-white-300 mt-1 border-t border-[#e9e9ef]"
                                         href="#"
+                                        onClick={signOut}
                                     >
                                         <span className="text-[14px] inline-block mr-[6px] align-middle">
                                             <FontAwesomeIcon icon={faRightFromBracket} />
                                         </span>
                                         <span className="text-[14px] text-dark-500 align-middle">Logout</span>
-                                    </a>
+                                    </button>
                                 </li>
                             </ul>
                         </div>

@@ -1,26 +1,17 @@
 /* eslint-disable import/no-unresolved */
 import { faAngleDown, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProductImg1 from 'Images/product/img-1.png';
-import ProductImg2 from 'Images/product/img-2.png';
-import ProductImg3 from 'Images/product/img-3.png';
-import ProductImg4 from 'Images/product/img-4.png';
-import ProductImg5 from 'Images/product/img-5.png';
-import ProductImg6 from 'Images/product/img-6.png';
-import ProductImg7 from 'Images/product/img-7.png';
-import CustomterAvatar1 from 'Images/users/avatar-2.jpg';
-import CustomterAvatar2 from 'Images/users/avatar-4.jpg';
-import CustomterAvatar3 from 'Images/users/avatar-5.jpg';
-import CustomterAvatar4 from 'Images/users/avatar-6.jpg';
-import CustomterAvatar5 from 'Images/users/avatar-7.jpg';
-import CustomterAvatar6 from 'Images/users/avatar-8.jpg';
-import CustomterAvatar7 from 'Images/users/avatar-9.jpg';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateMarketData } from '../../features/market/marketSlice';
+import { setPeerMessageList } from '../../features/messages/messagesSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
+import * as Images from '../../images';
 import BarChart from '../charts/positiveNegativeBarChart';
 import Layout from '../globals/layout';
+import { getMessageList } from '../messages/actions';
+import MessageInput from '../messages/messageInput';
+import MessageList from '../messages/messageList';
 import Customer from './customer';
 import Product from './product';
 import ShopOverview from './shopOverview';
@@ -39,6 +30,8 @@ function Home() {
     const dispatch = useDispatch();
     const { sales: salesData } = useSelector((store) => store);
     const { market: marketData } = useSelector((store) => store);
+    const { currentActiveChat, uid } = useSelector((store) => store.user);
+    const { messages } = useSelector((store) => store);
 
     const periods = {
         all: 0.2,
@@ -59,10 +52,17 @@ function Home() {
         event.currentTarget.classList.add('active');
     }
 
+    async function setMessageList() {
+        const msgList = await getMessageList(uid, currentActiveChat);
+        dispatch(setPeerMessageList({ peerId: currentActiveChat, messageList: msgList }));
+    }
+
     useEffect(() => {
+        setMessageList();
         // eslint-disable-next-line react-hooks/exhaustive-deps
         marketDatatoggleBtns = marketButtonsRef.current.querySelectorAll('button');
         marketDatatoggleBtns.forEach((btn) => btn.addEventListener('click', updateMarketOverviewData));
+        // fetch data
     }, []);
 
     return (
@@ -270,28 +270,60 @@ function Home() {
                         <div className="h-[380px]  overflow-y-scroll">
                             <ul>
                                 <li>
-                                    <Customer name="Randy Matthews" email="Randy@gmail.com" img={CustomterAvatar1} />
+                                    <Customer
+                                        name="Randy Matthews"
+                                        email="Randy@gmail.com"
+                                        img={Images.CustomterAvatar1}
+                                    />
                                 </li>
                                 <li>
-                                    <Customer name="Vernon Wood" email="Vernon@gmail.com" img={CustomterAvatar2} />
+                                    <Customer
+                                        name="Vernon Wood"
+                                        email="Vernon@gmail.com"
+                                        img={Images.CustomterAvatar2}
+                                    />
                                 </li>
                                 <li>
-                                    <Customer name="Howard Rhoades" email="Howard@gmail.com" img={CustomterAvatar3} />
+                                    <Customer
+                                        name="Howard Rhoades"
+                                        email="Howard@gmail.com"
+                                        img={Images.CustomterAvatar3}
+                                    />
                                 </li>
                                 <li>
-                                    <Customer name="Arthur Zurcher" email="Aurthor@gmail.com" img={CustomterAvatar3} />
+                                    <Customer
+                                        name="Arthur Zurcher"
+                                        email="Aurthor@gmail.com"
+                                        img={Images.CustomterAvatar3}
+                                    />
                                 </li>
                                 <li>
-                                    <Customer name="Angela Palmer" email="Palmar@gmail.com" img={CustomterAvatar4} />
+                                    <Customer
+                                        name="Angela Palmer"
+                                        email="Palmar@gmail.com"
+                                        img={Images.CustomterAvatar4}
+                                    />
                                 </li>
                                 <li>
-                                    <Customer name="Dorothy Wimson" email="Dorothy@gmail.com" img={CustomterAvatar5} />
+                                    <Customer
+                                        name="Dorothy Wimson"
+                                        email="Dorothy@gmail.com"
+                                        img={Images.CustomterAvatar5}
+                                    />
                                 </li>
                                 <li>
-                                    <Customer name="Vernon Wood" email="Vernon@gmail.com" img={CustomterAvatar6} />
+                                    <Customer
+                                        name="Vernon Wood"
+                                        email="Vernon@gmail.com"
+                                        img={Images.CustomterAvatar6}
+                                    />
                                 </li>
                                 <li>
-                                    <Customer name="Vernon Wood" email="Vernon@gmail.com" img={CustomterAvatar7} />
+                                    <Customer
+                                        name="Vernon Wood"
+                                        email="Vernon@gmail.com"
+                                        img={Images.CustomterAvatar7}
+                                    />
                                 </li>
                             </ul>
                         </div>
@@ -308,7 +340,7 @@ function Home() {
                             <table className="w-full">
                                 <tbody>
                                     <Product
-                                        img={ProductImg1}
+                                        img={Images.ProductImg1}
                                         title="Light blue T-shirt"
                                         instock={1557}
                                         price={650}
@@ -316,7 +348,7 @@ function Home() {
                                         sold={260}
                                     />
                                     <Product
-                                        img={ProductImg2}
+                                        img={Images.ProductImg2}
                                         title="Half sleeve T-shirt"
                                         instock={1557}
                                         price={650}
@@ -325,7 +357,7 @@ function Home() {
                                     />
 
                                     <Product
-                                        img={ProductImg3}
+                                        img={Images.ProductImg3}
                                         title="Black Color T-shirt"
                                         instock={false}
                                         price={650}
@@ -334,7 +366,7 @@ function Home() {
                                     />
 
                                     <Product
-                                        img={ProductImg4}
+                                        img={Images.ProductImg4}
                                         title="Half sleeve T-shirt"
                                         instock={1557}
                                         price={650}
@@ -343,7 +375,7 @@ function Home() {
                                     />
 
                                     <Product
-                                        img={ProductImg5}
+                                        img={Images.ProductImg5}
                                         title="Hoodie (Blue)"
                                         instock={false}
                                         price={650}
@@ -352,7 +384,7 @@ function Home() {
                                     />
 
                                     <Product
-                                        img={ProductImg6}
+                                        img={Images.ProductImg6}
                                         title="Half sleeve T-Shirt"
                                         instock={1557}
                                         price={650}
@@ -360,7 +392,7 @@ function Home() {
                                         sold={260}
                                     />
                                     <Product
-                                        img={ProductImg7}
+                                        img={Images.ProductImg7}
                                         title="Green color T-shirt"
                                         instock={1557}
                                         price={650}
@@ -415,7 +447,12 @@ function Home() {
                             </div>
                         </div>
                     </div>
-                    <div></div>
+                    <div className="h-[324px] overflow-x-hidden overflow-y-scroll">
+                        <MessageList msglist={messages[currentActiveChat] || []} currentUserId={uid} />
+                    </div>
+                    <div className="pb-4">
+                        <MessageInput />
+                    </div>
                 </div>
             </div>
         </Layout>

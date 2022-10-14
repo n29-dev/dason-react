@@ -79,6 +79,7 @@ module.exports = {
         new HTMLWebpackPlugin({
             template: path.resolve(__dirname, 'src/public/index.html'),
             title: 'Webpack React Setup',
+            favicon: './src/public/assets/images/favicon.ico',
             filename: 'index.html',
         }),
 
