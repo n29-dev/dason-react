@@ -16,7 +16,7 @@ import Logo from 'Images/logo-sm.svg';
 import UserAvatar from 'Images/users/avatar-1.jpg';
 import userAvatar3 from 'Images/users/avatar-3.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
@@ -27,7 +27,7 @@ function Header() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { displayName } = useSelector((store) => store.user);
+    const { displayName } = useSelector((store) => store.currentUser);
 
     const [languageDropdown, setLanguageDropdown, languageDropdownRef] = useDropdownToggle(false, {
         outClickClose: true,
@@ -61,12 +61,12 @@ function Header() {
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <div className="pr-20 logo-container">
-                        <a className="inline-flex items-center gap-[5px] text-white h-[70px]" href="#">
+                        <Link className="inline-flex items-center gap-[5px] text-white h-[70px]" to="/">
                             <span className="w-6 h-6 inline-block">
                                 <Logo />
                             </span>
                             <span className="font-bold text-lg uppercase logo-text">Dason</span>
-                        </a>
+                        </Link>
                     </div>
                     <div className="pr-20">
                         <button

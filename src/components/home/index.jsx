@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateMarketData } from '../../features/market/marketSlice';
-import { setPeerMessageList } from '../../features/messages/messagesSlice';
+// import { setPeerMessageList } from '../../features/messages/messagesSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
 import BarChart from '../charts/positiveNegativeBarChart';
 import Layout from '../globals/layout';
-import { getMessageList } from '../messages/actions';
+// import { getMessageList } from '../messages/actions';
 import MessageInput from '../messages/messageInput';
 import MessageList from '../messages/messageList';
 import Customer from './customer';
@@ -30,7 +30,7 @@ function Home() {
     const dispatch = useDispatch();
     const { sales: salesData } = useSelector((store) => store);
     const { market: marketData } = useSelector((store) => store);
-    const { currentActiveChat, uid } = useSelector((store) => store.user);
+    const { currentActiveChat, uid } = useSelector((store) => store.currentUser);
     const { messages } = useSelector((store) => store);
 
     const periods = {
@@ -53,8 +53,8 @@ function Home() {
     }
 
     async function setMessageList() {
-        const msgList = await getMessageList(uid, currentActiveChat);
-        dispatch(setPeerMessageList({ peerId: currentActiveChat, messageList: msgList }));
+        // const msgList = await getMessageList(uid, currentActiveChat);
+        // dispatch(setPeerMessageList({ peerId: currentActiveChat, messageList: msgList }));
     }
 
     useEffect(() => {
@@ -69,7 +69,7 @@ function Home() {
         <Layout>
             <div className="grid grid-cols-[66%,_34%] gap-6 mr-6">
                 {/* breadcrumbs */}
-                <div className="flex justify-between items-center mb-6 col-start-1 col-end-3">
+                <div className="flex justify-between items-center mb-5 col-start-1 col-end-3">
                     <h1 className="text-[18px] font-semibold text-dark-500">Welcome !</h1>
                     <ul className="breadcrumb flex gap-3">
                         <li className="text-[13px] text-dark-500">Dashboard</li>
@@ -355,7 +355,6 @@ function Home() {
                                         rating={2}
                                         sold={260}
                                     />
-
                                     <Product
                                         img={Images.ProductImg3}
                                         title="Black Color T-shirt"
@@ -364,7 +363,6 @@ function Home() {
                                         rating={2}
                                         sold={260}
                                     />
-
                                     <Product
                                         img={Images.ProductImg4}
                                         title="Half sleeve T-shirt"
@@ -373,7 +371,6 @@ function Home() {
                                         rating={2}
                                         sold={260}
                                     />
-
                                     <Product
                                         img={Images.ProductImg5}
                                         title="Hoodie (Blue)"
@@ -382,7 +379,6 @@ function Home() {
                                         rating={0}
                                         sold={260}
                                     />
-
                                     <Product
                                         img={Images.ProductImg6}
                                         title="Half sleeve T-Shirt"
