@@ -2,30 +2,30 @@
 import { faEnvelope, faLock, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { setCurrentUser } from '../../../features/currentUser/currentUserSlice';
 import Button from '../../globals/helpers/button';
 import Input from '../../globals/helpers/input';
-import { createNewUser, updateUserProfile } from '../actions';
+import { addUserToDb, createNewUser, updateUserProfile } from '../actions';
 import AuthLayout from '../authLayout';
 
 function Register() {
     const formRef = useRef();
     const formSubmitButtonRef = useRef();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    // update user profile
-    function updateUsername(username) {
-        updateUserProfile(
-            {
-                displayName: username,
-            },
-            () => {
-                navigate('/', { replace: true });
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+    async function registrationNextProcess(user, username) {
+        const updatedUser = await updateUserProfile({
+            displayName: username,
+        });
+        await addUserToDb(user.uid, username);
+
+        const { uid, displayName, email, photoURL } = updatedUser;
+        dispatch(setCurrentUser({ uid, displayName, email, photoURL }));
+
+        navigate('/');
     }
 
     // create new user
@@ -43,9 +43,11 @@ function Register() {
         createNewUser(
             email,
             password,
-            () => {
-                updateUsername(username);
+            // success
+            (user) => {
+                registrationNextProcess(user, username);
             },
+            // error
             (error) => {
                 console.log(error);
                 submitBtn.disabled = false;
