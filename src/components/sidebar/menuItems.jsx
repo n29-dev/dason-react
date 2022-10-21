@@ -1,7 +1,7 @@
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function MenuItem({ text, Icon, children, badge, dropdownHandler }) {
+function MenuItem({ text, Icon, children, badge, dropdownHandler, navigateHandler }) {
     return (
         <li className={`${children ? 'relative has-dropdown' : ''}`}>
             <button
@@ -10,7 +10,7 @@ function MenuItem({ text, Icon, children, badge, dropdownHandler }) {
                 } px-6 py-3 text-dark-400 flex items-center text-[13px] w-full
             relative hover:bg-white-400 hover:text-blue ${dropdownHandler?.get() && 'active'}`}
                 type="button"
-                onClick={dropdownHandler?.toggle || undefined}
+                onClick={dropdownHandler?.toggle || navigateHandler || undefined}
             >
                 {/* icon */}
                 {Icon && (

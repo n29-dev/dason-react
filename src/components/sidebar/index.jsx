@@ -3,6 +3,7 @@
 import { faComment, faEnvelope, faFileLines } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useSubmenuToggle from '../../hooks/useSubmenuToggle';
 import * as Images from '../../images';
 import Button from '../globals/helpers/button';
@@ -47,6 +48,8 @@ function Sidebar({ open }) {
     const [chatsDropdown, chatsDropdownToggle] = useSubmenuToggle();
     const sidebarRef = useRef();
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         dropdownBtns = sidebarRef.current.querySelectorAll('.dropdown-btn');
         sidebarRef.current.addEventListener('click', keepOneOpen);
@@ -68,7 +71,14 @@ function Sidebar({ open }) {
                     <div>
                         <h3 className="text-[12px] text-dark-500 py-4 px-5 font-medium menu-catagory-title">Menu</h3>
                         <ul className="menu-items">
-                            <MenuItem Icon={Images.houseIcon} text="Dashboard" badge="9+" />
+                            <MenuItem
+                                Icon={Images.houseIcon}
+                                text="Dashboard"
+                                badge="9+"
+                                navigateHandler={() => {
+                                    navigate('/');
+                                }}
+                            />
                         </ul>
                     </div>
                     <div>
@@ -92,7 +102,13 @@ function Sidebar({ open }) {
                                     <MenuItem text="Seller Details" />
                                 </SubMenu>
                             </MenuItem>
-                            <MenuItem Icon={() => <FontAwesomeIcon icon={faComment} />} text="Chat" />
+                            <MenuItem
+                                Icon={() => <FontAwesomeIcon icon={faComment} />}
+                                text="Chat"
+                                navigateHandler={() => {
+                                    navigate('/chats');
+                                }}
+                            />
                             <MenuItem
                                 Icon={() => <FontAwesomeIcon icon={faEnvelope} />}
                                 text="Email"

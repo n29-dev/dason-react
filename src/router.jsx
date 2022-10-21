@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import AuthRoute from './middleware/authRoute';
 import GuestRoute from './middleware/guestRoute';
+import ChatsPage from './views/chatsPage';
 import HomePage from './views/homePage';
 import LoginPage from './views/loginPage';
 import RegistrationPage from './views/registrationPage';
@@ -14,6 +15,7 @@ function Router() {
             {/* authenticated routes */}
             <Route path="/" element={<AuthRoute redirectPath="/login" />}>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/chats" element={<ChatsPage />} />
             </Route>
         </Routes>
     );

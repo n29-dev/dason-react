@@ -197,3 +197,27 @@ button[disabled] {
     visibility: visible;
     opacity: 1;
 }
+
+.shake {
+    display: inline-block;
+    animation: shake 1s alternate infinite;
+    transform-origin: bottom;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(-9deg);
+    }
+    25% {
+        transform: rotate(9deg);
+    }
+    50% {
+        transform: rotate(-9deg);
+    }
+    75% {
+        transform: rotate(9deg);
+    }
+    100% {
+        transform: rotate(9deg);
+    }
+}
