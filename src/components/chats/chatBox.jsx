@@ -1,6 +1,4 @@
-/* eslint-disable no-return-assign */
 /* eslint-disable react/jsx-no-bind */
-/* eslint-disable no-unused-vars */
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
@@ -116,9 +114,9 @@ function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
                     </div>
                 </div>
             </div>
-            <div className="overflow-x-hidden overflow-y-scroll pt-8">
+            <div className="h-[calc(100%_-_71px)] overflow-x-hidden overflow-y-scroll pt-8">
                 {currentActiveChatMessages ? (
-                    <MessageList msglist={currentActiveChatMessages} />
+                    <MessageList msglist={currentActiveChatMessages} currentUserId={currentUserId} />
                 ) : (
                     <div className="pt-[100px] flex items-center justify-center">
                         <div>

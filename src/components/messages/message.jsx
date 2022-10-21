@@ -61,7 +61,7 @@ function Message({ photo, messageBody, recieved, created }) {
                                 </ul>
                             </div>
                         </div>
-                        <div className={`msg-date ${recieved ? 'translate-x-[-100%]' : ''}`}>
+                        <div className={`msg-date w-[max-content] ${recieved ? 'translate-x-[-100%]' : ''}`}>
                             <span className="text-[10px] text-dark-400">{created}</span>
                         </div>
                     </div>

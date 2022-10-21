@@ -40,8 +40,8 @@ function Chats() {
                         <li className="text-[13px] text-dark-400">Chats</li>
                     </ul>
                 </div>
-                <div className="grid grid-cols-[30%,_70%] gap-2">
-                    <div className="component-default p-0">
+                <div className="grid grid-cols-[30%,_70%] gap-2 h-full">
+                    <div className="component-default p-0 h-[500px]">
                         <div className="px-6 py-4 flex justify-between">
                             <div className="flex items-center gap-4">
                                 <div className="flex-shrink-0">
@@ -108,7 +108,7 @@ function Chats() {
                                 />
                             </div>
                         </div>
-                        <div>
+                        <div className="h-[calc(100%_-_132px)]">
                             <div className="bg-[#f4f5f8] p-1 flex">
                                 <button
                                     className={`leading-[20px] py-2 flex-1 rounded-md ${
@@ -134,14 +134,14 @@ function Chats() {
                                 </button>
                             </div>
                             <div
-                                className={`h-[300px] overflow-x-hidden overflow-y-scroll ${
+                                className={`h-[calc(100%_-_40px)] overflow-x-hidden overflow-y-scroll ${
                                     activeTab === 'chat' ? '' : 'hidden'
                                 }`}
                             >
                                 <ChatList chatList={peers} currentUserId={uid} itemClickHandler={chatItemHandler} />
                             </div>
                             <div
-                                className={`h-[300px] overflow-x-hidden overflow-y-scroll ${
+                                className={`h-[calc(100% - 40px)] overflow-x-hidden overflow-y-scroll ${
                                     activeTab === 'contact' ? '' : 'hidden'
                                 }`}
                             >
@@ -149,7 +149,7 @@ function Chats() {
                             </div>
                         </div>
                     </div>
-                    <div className="component-default p-0">
+                    <div className="component-default p-0 h-[500px]">
                         <ChatBox
                             currentActiveChatUser={currentActiveChatUser || currentUser}
                             currentActiveChatMessages={currentActiveChatId && messages[currentActiveChatId]}

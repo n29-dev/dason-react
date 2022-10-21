@@ -38,7 +38,7 @@ function MessageObserver({ children }) {
                     return {
                         created: message.created?.seconds || new Date().getSeconds(),
                         messageBody: message.messageBody,
-                        messageSenderId: message.messageSenderId,
+                        senderId: message.senderId,
                     };
                 });
 

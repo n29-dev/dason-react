@@ -8,12 +8,14 @@ function MessageList({ msglist, currentUserId }) {
             <ul className="px-4">
                 {msglist.map((msg) => {
                     const { senderId, messageBody, created } = msg;
+                    const date = new Date(created * 1000);
+
                     return (
                         <Message
                             photo={CustomterAvatar1}
                             messageBody={messageBody}
                             recieved={currentUserId !== senderId}
-                            created={created}
+                            created={date.toDateString()}
                             key={Math.random() * Math.random()}
                         />
                     );
