@@ -1,17 +1,12 @@
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import Loading from '../components/globals/loading';
+import MessageObserver from '../observers/messageObserver';
 
 function AuthRoute({ redirectPath = '/login', children }) {
-    const { user } = useSelector((store) => store);
-    const { isLoading } = useSelector((store) => store.loading);
+    const { currentUser } = useSelector((store) => store);
 
-    if (isLoading) {
-        return <Loading />;
-    }
-
-    if (user?.uid) {
-        return children || <Outlet />;
+    if (currentUser?.uid) {
+        return <MessageObserver>{children || <Outlet />}</MessageObserver>;
     }
 
     return <Navigate to={redirectPath} replace />;
