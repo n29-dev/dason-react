@@ -26,9 +26,10 @@ function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
     const messageInputRef = useRef();
 
     // if current active chat is not peer
-    async function createPeerAndSendMessage() {
-        const messageBody = messageInputRef.current.value;
+    async function sendUserMessage(event) {
+        event.preventDefault();
 
+        const messageBody = messageInputRef.current.value;
         // return function if messageBody only contains space
         if (messageBody === '' || /^\s*$/.test(messageBody)) {
             return;
@@ -39,6 +40,7 @@ function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
             sendMessage(messageRoomPath, currentUserId, messageBody);
         } else {
             const messageRoomPath = await createPeer(currentUserId, currentActiveChatId);
+            sendMessage(messageRoomPath, currentUserId, messageBody);
             // set message list for current active chat
             dispatch(
                 setPeerMessageList({
@@ -46,7 +48,6 @@ function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
                     messageList: [],
                 })
             );
-            sendMessage(messageRoomPath, currentUserId, messageBody);
             dispatch(removeContact(currentActiveChatId));
         }
 
@@ -129,7 +130,9 @@ function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
             </div>
             <div className="absolute bottom-0 w-full pb-[20px] bg-[#fff]">
                 <MessageInput
-                    onSend={createPeerAndSendMessage}
+                    onSubmit={(event) => {
+                        sendUserMessage(event);
+                    }}
                     ref={messageInputRef}
                     disabled={currentActiveChatId === currentUserId}
                 />

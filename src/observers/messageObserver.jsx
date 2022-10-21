@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, doc, getDocs, limit, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setContactList } from '../features/contacts/contactsSlice';
@@ -25,10 +25,10 @@ function MessageObserver({ children }) {
     // fetch peer messages
     async function getPeerMessages(peer) {
         const messagesRef = collection(db, peer.messageRoomPath, 'messages');
-        // const q = query(messagesRef, orderBy('desc'), limit(15));
+        const q = query(messagesRef, orderBy('created'), limit(15));
 
         try {
-            const messageQuery = await getDocs(messagesRef);
+            const messageQuery = await getDocs(q);
             // if any docs exist
             if (messageQuery.docs.length > 0) {
                 const peerMessages = messageQuery.docs.map((messageDoc) => {

@@ -2,8 +2,8 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
-const MessageInput = React.forwardRef(({ onSend, disabled }, ref) => (
-    <div className="px-5 flex items-center gap-5">
+const MessageInput = React.forwardRef(({ onSubmit, disabled }, ref) => (
+    <form className="px-5 flex items-center gap-5" onSubmit={onSubmit}>
         <input
             className="px-3 py-3 border border-[#e9e9ef] outline-0 bg-[rgba(233,_233,_239,_.4)] text-dark-500
                  placeholder:text-dark-500 rounded min-w-[230px] flex-1"
@@ -13,8 +13,7 @@ const MessageInput = React.forwardRef(({ onSend, disabled }, ref) => (
         />
         <button
             className="py-3 pl-8 text-[13px] text-right text-white bg-blue inline-block rounded"
-            type="button"
-            onClick={onSend}
+            type="submit"
             disabled={disabled}
         >
             Send
@@ -22,7 +21,7 @@ const MessageInput = React.forwardRef(({ onSend, disabled }, ref) => (
                 <FontAwesomeIcon icon={faPaperPlane} />
             </span>
         </button>
-    </div>
+    </form>
 ));
 
 export default MessageInput;

@@ -15,13 +15,17 @@ async function createPeer(currentUserId, peerUserId) {
     async function updateUserPeers(userId, peerId, messageRoomPath) {
         // get user doc
         const userDocRef = doc(db, 'users', `${userId}`);
-        let userDoc = await getDoc(userDocRef);
-        userDoc = userDoc.data();
+        try {
+            let userDoc = await getDoc(userDocRef);
+            userDoc = userDoc.data();
 
-        // update user doc with new peer data
-        updateDoc(userDocRef, {
-            peers: [{ peerId, messageRoomPath }, ...userDoc.peers],
-        });
+            // update user doc with new peer data
+            updateDoc(userDocRef, {
+                peers: [{ peerId, messageRoomPath }, ...userDoc.peers],
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // top level variable for storing messageId
@@ -35,6 +39,7 @@ async function createPeer(currentUserId, peerUserId) {
 
         updateUserPeers(currentUserId, peerUserId, messageRoom.path);
         updateUserPeers(peerUserId, currentUserId, messageRoom.path);
+
         // console log erros
     } catch (error) {
         console.log(error);
