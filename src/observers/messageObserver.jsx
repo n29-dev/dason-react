@@ -25,7 +25,7 @@ function MessageObserver({ children }) {
     // fetch peer messages
     async function getPeerMessages(peer) {
         const messagesRef = collection(db, peer.messageRoomPath, 'messages');
-        const q = query(messagesRef, orderBy('created'), limit(15));
+        const q = query(messagesRef, orderBy('created', 'desc'), limit(15));
 
         try {
             const messageQuery = await getDocs(q);
@@ -33,7 +33,6 @@ function MessageObserver({ children }) {
             if (messageQuery.docs.length > 0) {
                 const peerMessages = messageQuery.docs.map((messageDoc) => {
                     const message = messageDoc.data();
-                    console.log(message);
 
                     return {
                         created: message.created?.seconds || new Date().getSeconds(),
@@ -42,6 +41,7 @@ function MessageObserver({ children }) {
                     };
                 });
 
+                peerMessages.reverse();
                 dispatch(setPeerMessageList({ peerId: peer.peerId, messageList: peerMessages }));
             }
         } catch (error) {
