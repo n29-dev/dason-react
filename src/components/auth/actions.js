@@ -1,5 +1,6 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../../firebase';
 
 // create new user
 async function createNewUser(email, password, onSuccess = () => {}, onError = () => {}) {
@@ -11,6 +12,8 @@ async function createNewUser(email, password, onSuccess = () => {}, onError = ()
         // if any error occurs the onError function is invocked
         onError(error);
     }
+
+    return auth.currentUser;
 }
 
 // update user profile
@@ -23,6 +26,8 @@ async function updateUserProfile(updateProps, onSuccess = () => {}, onError = ()
         // if any error occurs the onError function is invocked
         onError(error);
     }
+
+    return auth.currentUser;
 }
 
 // login existing user
@@ -35,6 +40,35 @@ async function logInUser(email, password, onSuccess = () => {}, onError = () => 
         // if any error occurs the onError function is invocked
         onError(error);
     }
+
+    return auth.currentUser;
 }
 
-export { createNewUser, updateUserProfile, logInUser };
+// logout user
+async function logOutUser(onSucces = () => {}, onError = () => {}) {
+    try {
+        await signOut(auth);
+        // if user is successfully signedIn onSuccess is invoced
+        onSucces(auth.currentUser);
+    } catch (error) {
+        // if any error occurs the onError function is invocked
+        onError(error);
+    }
+}
+
+// add user to db
+async function addUserToDb(uid, username) {
+    const usersCollectionRef = collection(db, 'users');
+
+    try {
+        await setDoc(doc(usersCollectionRef, uid), {
+            uid,
+            displayName: username,
+            peers: [],
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { createNewUser, updateUserProfile, logInUser, logOutUser, addUserToDb };
