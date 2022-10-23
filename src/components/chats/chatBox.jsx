@@ -54,19 +54,6 @@ function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
         messageInputRef.current.value = '';
     }
 
-    // // if current active chat is peer
-    // async function sendUserMessage() {
-    //     const messageBody = messageInputRef.current.value;
-
-    //     // return function if messageBody only contains space
-    //     if (messageBody === '' || /^\s*$/.test(messageBody)) {
-    //         return;
-    //     }
-    //     const { messageRoomPath } = currentUserPeers.find((peer) => peer.peerId === currentActiveChatId);
-    //     sendMessage(messageRoomPath, currentUserId, messageBody);
-    //     messageInputRef.current.value = '';
-    // }
-
     return (
         <div className="h-full relative">
             <div className="px-6 py-4 flex justify-between border-b border-[#e9e9ef]">

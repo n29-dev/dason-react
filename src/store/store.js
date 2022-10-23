@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import allUsersReducer from '../features/allUsers/allUsersSlice';
 import contactsReducer from '../features/contacts/contactsSlice';
+import currentActiveChatReducer from '../features/currentActiveChat/currentActiveChatSlice';
 import currentUserReducer from '../features/currentUser/currentUserSlice';
 import loadingReducer from '../features/loading/loadingSlice';
 import marketReducer from '../features/market/marketSlice';
@@ -21,6 +22,7 @@ const store = configureStore({
         contacts: contactsReducer,
         peers: peersReducer,
         allUsers: allUsersReducer,
+        currentActiveChat: currentActiveChatReducer,
     },
 });
 

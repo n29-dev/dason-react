@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
+import { setCookie } from '../../lib/cookie';
 import Layout from '../globals/layout';
 import ChatBox from './chatBox';
 import ChatList from './chatList';
@@ -27,6 +28,7 @@ function Chats() {
     // create new peer from contact
     function chatItemHandler(contactUserId) {
         setCurrentActiveChatId(contactUserId);
+        setCookie({ name: 'currentActiveChat', value: contactUserId, expires: 10 });
     }
 
     return (
