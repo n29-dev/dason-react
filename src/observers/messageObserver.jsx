@@ -1,26 +1,17 @@
 import { collection, doc, getDocs, limit, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setContactList } from '../features/contacts/contactsSlice';
-import { setCurrentUser } from '../features/currentUser/currentUserSlice';
 import { setPeerMessageList } from '../features/messages/messagesSlice';
-import { setPeersList } from '../features/peers/peersSlice';
+import { setCurrentActiveChatMessage, setCurrentUserPeers, setPeersAndContacts } from '../features/users/usersSlice';
 import { db } from '../firebase';
-import useFilterUsers from '../hooks/useFilterUsers';
 
 function MessageObserver({ children }) {
     const dispatch = useDispatch();
-    const filterUsers = useFilterUsers();
 
-    const { currentUser, allUsers } = useSelector((store) => store);
-    const { uid, peers: currentUserPeers } = currentUser;
-
-    // filter users and peers
-    function filterPeersAndContacts(currentUser, allUsers) {
-        const [peerList, contactList] = filterUsers(currentUser, allUsers);
-        dispatch(setContactList(contactList));
-        dispatch(setPeersList(peerList));
-    }
+    const { currentUser, currentActiveChat } = useSelector((store) => store.users);
+    const { uid: currentUserId, peers: currentUserPeers } = currentUser;
+    console.log(currentUserPeers);
+    const { uid: currentActiveChatId } = currentActiveChat;
 
     // fetch peer messages
     async function getPeerMessages(peer) {
@@ -43,6 +34,11 @@ function MessageObserver({ children }) {
 
                 peerMessages.reverse();
                 dispatch(setPeerMessageList({ peerId: peer.peerId, messageList: peerMessages }));
+
+                // set current active chat messages
+                if (currentActiveChatId && peer.peerId === currentActiveChatId) {
+                    dispatch(setCurrentActiveChatMessage(peerMessages));
+                }
             }
         } catch (error) {
             console.log(error);
@@ -57,14 +53,14 @@ function MessageObserver({ children }) {
         );
     }
 
-    // listen for changes on user document
+    // listen for changes on current user document
     useEffect(() => {
-        const unSubs = onSnapshot(doc(db, 'users', `${uid}`), (doc) => {
+        const unSubs = onSnapshot(doc(db, 'users', `${currentUserId}`), (doc) => {
             const updatedUser = doc.data();
 
             if (updatedUser.peers.length !== currentUserPeers.length) {
-                setCurrentUser({ peers: updatedUser.peers });
-                filterPeersAndContacts(updatedUser, allUsers);
+                setCurrentUserPeers(updatedUser.peers);
+                setPeersAndContacts();
                 observeMessageRooms(updatedUser.peers);
             }
         });

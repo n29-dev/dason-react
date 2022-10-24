@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { setCurrentUser } from '../../../features/currentUser/currentUserSlice';
+import { setCurrentUser } from '../../../features/users/usersSlice';
 import Button from '../../globals/helpers/button';
 import Input from '../../globals/helpers/input';
 import { addUserToDb, createNewUser, updateUserProfile } from '../actions';

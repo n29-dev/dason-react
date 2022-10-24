@@ -2,7 +2,8 @@
 import { faEllipsis, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
+import { setCurrentActiveChat, setCurrentActiveChatMessage } from '../../features/users/usersSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
 import { setCookie } from '../../lib/cookie';
@@ -15,20 +16,22 @@ function Chats() {
         outClickClose: true,
     });
 
+    const dispatch = useDispatch();
+
     // tab state
     const [activeTab, setActiveTab] = useState('chat');
 
-    const { currentUser, contacts, messages, allUsers, peers } = useSelector((store) => store);
+    const { currentUser, contacts, peers } = useSelector((store) => store.users);
+    const { messages } = useSelector((store) => store);
     const { displayName, uid } = currentUser;
 
-    // current active chat state
-    const [currentActiveChatId, setCurrentActiveChatId] = useState(null);
-    const currentActiveChatUser = allUsers.find((user) => user.uid === currentActiveChatId);
-
     // create new peer from contact
-    function chatItemHandler(contactUserId) {
-        setCurrentActiveChatId(contactUserId);
-        setCookie({ name: 'currentActiveChat', value: contactUserId, expires: 10 });
+    function chatItemHandler(userId) {
+        batch(() => {
+            dispatch(setCurrentActiveChat(userId));
+            dispatch(setCurrentActiveChatMessage(messages[userId]));
+        });
+        setCookie({ name: 'activeChatUser', value: userId, expires: 10 });
     }
 
     return (
@@ -152,10 +155,7 @@ function Chats() {
                         </div>
                     </div>
                     <div className="component-default p-0 h-[500px]">
-                        <ChatBox
-                            currentActiveChatUser={currentActiveChatUser || currentUser}
-                            currentActiveChatMessages={currentActiveChatId && messages[currentActiveChatId]}
-                        />
+                        <ChatBox />
                     </div>
                 </div>
             </div>

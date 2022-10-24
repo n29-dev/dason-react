@@ -3,8 +3,7 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeContact } from '../../features/contacts/contactsSlice';
-import { setPeerMessageList } from '../../features/messages/messagesSlice';
+import { removeContact } from '../../features/users/usersSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
 import { sendMessage } from '../messages/actions';
@@ -12,15 +11,23 @@ import MessageInput from '../messages/messageInput';
 import MessageList from '../messages/messageList';
 import { createPeer } from './actions';
 
-function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
+function ChatBox() {
     const [optionDropdown, setOptionDropdown, optionDropdownRef] = useDropdownToggle(false, {
         outClickClose: true,
     });
     const dispatch = useDispatch();
 
-    const { displayName, uid: currentActiveChatId } = currentActiveChatUser;
-    const { currentUser } = useSelector((store) => store);
-    const { uid: currentUserId, peers: currentUserPeers } = currentUser;
+    const { currentUser, currentActiveChat } = useSelector((store) => store.users);
+
+    const {
+        displayName: activeChatDisplayName,
+        uid: currentActiveChatId,
+        messages: activeChatMessages,
+        messageRoomPath,
+        setCurrentActiveChatMessageRoomPath,
+    } = currentActiveChat;
+
+    const { displayName: currentUserDisplayName, uid: currentUserId } = currentUser;
 
     // send message
     const messageInputRef = useRef();
@@ -30,24 +37,20 @@ function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
         event.preventDefault();
 
         const messageBody = messageInputRef.current.value;
-        // return function if messageBody only contains space
-        if (messageBody === '' || /^\s*$/.test(messageBody)) {
+        // if messageBody only contains space return
+        if (messageBody.trim() === '') {
+            console.log(messageBody);
             return;
         }
 
-        if (currentActiveChatMessages) {
-            const { messageRoomPath } = currentUserPeers.find((peer) => peer.peerId === currentActiveChatId);
+        if (messageRoomPath) {
             sendMessage(messageRoomPath, currentUserId, messageBody);
         } else {
             const messageRoomPath = await createPeer(currentUserId, currentActiveChatId);
+            setCurrentActiveChatMessageRoomPath(messageRoomPath);
+
             sendMessage(messageRoomPath, currentUserId, messageBody);
             // set message list for current active chat
-            dispatch(
-                setPeerMessageList({
-                    peerId: currentActiveChatId,
-                    messageList: [],
-                })
-            );
             dispatch(removeContact(currentActiveChatId));
         }
 
@@ -63,7 +66,7 @@ function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
                     </div>
                     <div>
                         <h5 className="text-[16px] font-medium text-dark-600 flex items-center gap-[6px]">
-                            <span>{displayName}</span>
+                            <span>{activeChatDisplayName || currentUserDisplayName}</span>
                             <span
                                 className="align-top w-[6px] h-[6px]
                  bg-success inline-block rounded"
@@ -103,8 +106,8 @@ function ChatBox({ currentActiveChatUser, currentActiveChatMessages }) {
                 </div>
             </div>
             <div className="h-[calc(100%_-_71px)] overflow-x-hidden overflow-y-scroll pt-8">
-                {currentActiveChatMessages ? (
-                    <MessageList msglist={currentActiveChatMessages} currentUserId={currentUserId} />
+                {activeChatMessages ? (
+                    <MessageList msglist={activeChatMessages} currentUserId={currentUserId} />
                 ) : (
                     <div className="pt-[100px] flex items-center justify-center">
                         <div>

@@ -4,12 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateMarketData } from '../../features/market/marketSlice';
-// import { setPeerMessageList } from '../../features/messages/messagesSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
 import BarChart from '../charts/positiveNegativeBarChart';
 import Layout from '../globals/layout';
-// import { getMessageList } from '../messages/actions';
 import MessageInput from '../messages/messageInput';
 import MessageList from '../messages/messageList';
 import Customer from './customer';
@@ -30,8 +28,7 @@ function Home() {
     const dispatch = useDispatch();
     const { sales: salesData } = useSelector((store) => store);
     const { market: marketData } = useSelector((store) => store);
-    const { currentActiveChat, uid } = useSelector((store) => store.currentUser);
-    const { messages } = useSelector((store) => store);
+    const { uid } = useSelector((store) => store.users.currentUser);
 
     const periods = {
         all: 0.2,
@@ -52,17 +49,9 @@ function Home() {
         event.currentTarget.classList.add('active');
     }
 
-    async function setMessageList() {
-        // const msgList = await getMessageList(uid, currentActiveChat);
-        // dispatch(setPeerMessageList({ peerId: currentActiveChat, messageList: msgList }));
-    }
-
     useEffect(() => {
-        setMessageList();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         marketDatatoggleBtns = marketButtonsRef.current.querySelectorAll('button');
         marketDatatoggleBtns.forEach((btn) => btn.addEventListener('click', updateMarketOverviewData));
-        // fetch data
     }, []);
 
     return (
@@ -444,7 +433,7 @@ function Home() {
                         </div>
                     </div>
                     <div className="h-[324px] overflow-x-hidden overflow-y-scroll">
-                        <MessageList msglist={messages[currentActiveChat] || []} currentUserId={uid} />
+                        <MessageList msglist={[]} currentUserId={uid} />
                     </div>
                     <div className="pb-4">
                         <MessageInput />

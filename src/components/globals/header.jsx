@@ -18,6 +18,7 @@ import userAvatar3 from 'Images/users/avatar-3.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
+import { setCurrentUser } from '../../features/users/usersSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
 import { logOutUser } from '../auth/actions';
@@ -27,7 +28,7 @@ function Header() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { displayName } = useSelector((store) => store.currentUser);
+    const { displayName } = useSelector((store) => store.users.currentUser);
 
     const [languageDropdown, setLanguageDropdown, languageDropdownRef] = useDropdownToggle(false, {
         outClickClose: true,
@@ -45,6 +46,7 @@ function Header() {
     function signOut() {
         logOutUser(
             () => {
+                dispatch(setCurrentUser({}));
                 navigate('/login', { replace: true });
             },
             (error) => {

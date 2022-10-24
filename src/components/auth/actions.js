@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
+import { setCookie } from '../../lib/cookie';
 
 // create new user
 async function createNewUser(email, password, onSuccess = () => {}, onError = () => {}) {
@@ -48,6 +49,7 @@ async function logInUser(email, password, onSuccess = () => {}, onError = () => 
 async function logOutUser(onSucces = () => {}, onError = () => {}) {
     try {
         await signOut(auth);
+        setCookie({ name: 'activeChatUser', value: '', expires: -2 });
         // if user is successfully signedIn onSuccess is invoced
         onSucces(auth.currentUser);
     } catch (error) {

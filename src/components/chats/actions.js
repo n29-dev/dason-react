@@ -4,7 +4,12 @@ import { db } from '../../firebase';
 
 // function for getting all docs from a collection
 async function getAllDocs(colRef) {
-    const querySnapshot = await getDocs(colRef);
+    let querySnapshot;
+    try {
+        querySnapshot = await getDocs(colRef);
+    } catch (error) {
+        console.log(error);
+    }
 
     return querySnapshot.docs.map((doc) => doc.data());
 }
