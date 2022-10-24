@@ -3,7 +3,7 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeContact } from '../../features/users/usersSlice';
+import { removeContact, setCurrentActiveChatMessageRoomPath } from '../../features/users/usersSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
 import { sendMessage } from '../messages/actions';
@@ -24,7 +24,6 @@ function ChatBox() {
         uid: currentActiveChatId,
         messages: activeChatMessages,
         messageRoomPath,
-        setCurrentActiveChatMessageRoomPath,
     } = currentActiveChat;
 
     const { displayName: currentUserDisplayName, uid: currentUserId } = currentUser;

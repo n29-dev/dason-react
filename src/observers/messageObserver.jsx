@@ -3,15 +3,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPeerMessageList } from '../features/messages/messagesSlice';
 import { setCurrentActiveChatMessage, setCurrentUserPeers, setPeersAndContacts } from '../features/users/usersSlice';
+
 import { db } from '../firebase';
+import store from '../store/store';
 
 function MessageObserver({ children }) {
     const dispatch = useDispatch();
 
-    const { currentUser, currentActiveChat } = useSelector((store) => store.users);
+    const { currentUser } = useSelector((store) => store.users);
     const { uid: currentUserId, peers: currentUserPeers } = currentUser;
-    console.log(currentUserPeers);
-    const { uid: currentActiveChatId } = currentActiveChat;
 
     // fetch peer messages
     async function getPeerMessages(peer) {
@@ -36,8 +36,11 @@ function MessageObserver({ children }) {
                 dispatch(setPeerMessageList({ peerId: peer.peerId, messageList: peerMessages }));
 
                 // set current active chat messages
+
+                const { uid: currentActiveChatId } = store.getState().users.currentActiveChat;
+
                 if (currentActiveChatId && peer.peerId === currentActiveChatId) {
-                    dispatch(setCurrentActiveChatMessage(peerMessages));
+                    store.dispatch(setCurrentActiveChatMessage(peerMessages));
                 }
             }
         } catch (error) {
