@@ -36,7 +36,6 @@ function MessageObserver({ children }) {
                 dispatch(setPeerMessageList({ peerId: peer.peerId, messageList: peerMessages }));
 
                 // set current active chat messages
-
                 const { uid: currentActiveChatId } = store.getState().users.currentActiveChat;
 
                 if (currentActiveChatId && peer.peerId === currentActiveChatId) {
@@ -49,7 +48,7 @@ function MessageObserver({ children }) {
     }
 
     function observeMessageRooms(currentUserPeers) {
-        currentUserPeers.map((peer) =>
+        return currentUserPeers.map((peer) =>
             onSnapshot(doc(db, peer.messageRoomPath), () => {
                 getPeerMessages(peer);
             })
@@ -58,22 +57,26 @@ function MessageObserver({ children }) {
 
     // listen for changes on current user document
     useEffect(() => {
-        const unSubs = onSnapshot(doc(db, 'users', `${currentUserId}`), (doc) => {
+        const clearListener = onSnapshot(doc(db, 'users', `${currentUserId}`), (doc) => {
             const updatedUser = doc.data();
 
             if (updatedUser.peers.length !== currentUserPeers.length) {
                 setCurrentUserPeers(updatedUser.peers);
                 setPeersAndContacts();
-                observeMessageRooms(updatedUser.peers);
             }
         });
 
-        return unSubs;
+        return clearListener;
     }, []);
 
     useEffect(() => {
-        observeMessageRooms(currentUserPeers);
-    }, []);
+        const clearListenersArray = observeMessageRooms(currentUserPeers);
+
+        // clear listeners
+        return () => {
+            clearListenersArray.forEach((func) => func());
+        };
+    }, [currentUserPeers]);
 
     return children;
 }

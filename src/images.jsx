@@ -10,8 +10,7 @@ import italianFlag from 'Images/flags/italy.jpg';
 import russianFlag from 'Images/flags/russia.jpg';
 import spainFlag from 'Images/flags/spain.jpg';
 import usFlag from 'Images/flags/us.jpg';
-import GridIcon from 'Images/grid-icon.svg';
-import Logo from 'Images/logo-sm.svg';
+import sendFriendsMessageIlus from 'Images/illustrations/chat-with-friends.png';
 import UserAvatar from 'Images/users/avatar-1.jpg';
 import userAvatar3 from 'Images/users/avatar-3.jpg';
 
@@ -38,10 +37,12 @@ import contactIcon from 'Images/contact.svg';
 import cpuIcon from 'Images/cpu.svg';
 import giftIcon from 'Images/gift.svg';
 import giftBox from 'Images/giftbox.png';
+import GridIcon from 'Images/grid-icon.svg';
 import houseIcon from 'Images/house.svg';
 import knobsIcon from 'Images/knobs.svg';
 import layoutIcon from 'Images/layout.svg';
 import lockIcon from 'Images/lock.svg';
+import Logo from 'Images/logo-sm.svg';
 import mapsIcon from 'Images/maps.svg';
 import newspaperIcon from 'Images/newspaper.svg';
 import shareIcon from 'Images/share.svg';
@@ -91,6 +92,7 @@ export {
     mapsIcon,
     newspaperIcon,
     shareIcon,
+    sendFriendsMessageIlus,
 };
 // eslint-disable-next-line prettier/prettier
 

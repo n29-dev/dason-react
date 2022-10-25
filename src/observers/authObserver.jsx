@@ -29,7 +29,9 @@ function AuthObserver({ children }) {
         dispatch(setCurrentUserPeers());
 
         batch(() => {
-            dispatch(setCurrentActiveChat(currentActiveChatId));
+            if (currentActiveChatId) {
+                dispatch(setCurrentActiveChat(currentActiveChatId));
+            }
             dispatch(setPeersAndContacts());
             dispatch(setLoading(false));
         });

@@ -81,9 +81,12 @@ function ChatBox() {
                 {activeChatMessages ? (
                     <MessageList msglist={activeChatMessages} currentUserId={currentUserId} />
                 ) : (
-                    <div className="pt-[100px] flex items-center justify-center">
+                    <div className="pb-[80px] h-full flex items-center justify-center">
                         <div>
-                            <h2 className="text-[20px] text-dark-500">
+                            <div className="w-[200px] h-auto mb-[15px]">
+                                <img src={Images.sendFriendsMessageIlus} alt="" />
+                            </div>
+                            <h2 className="text-[15px] text-dark-500">
                                 Say Hi to your friends <span className="shake">✋</span>
                             </h2>
                         </div>

@@ -1,8 +1,9 @@
 /* eslint-disable import/no-unresolved */
-import { faAngleDown, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faArrowRight, faExpand } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { updateMarketData } from '../../features/market/marketSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import useSendMessage from '../../hooks/useSendMessage';
@@ -401,44 +402,62 @@ function Home() {
                         border-[#e9e9ef] border-b  divide-solid mb-[20px]"
                     >
                         <h2 className="text-base text-dark-600 font-semibold">Chats</h2>
-                        <div className="relative">
-                            <button type="button" onClick={setChatOptionDropdown.toggle}>
-                                Today
-                                <span className="text-[12px] inline-block ml-1">
-                                    <FontAwesomeIcon icon={faAngleDown} />
-                                </span>
-                            </button>
-                            <div
-                                className={`dropdown top-[calc(100%_+_8px)] ${chatOptionDropdown ? 'active' : ''}`}
-                                ref={chatOptionDropdownRef}
-                            >
-                                <ul>
-                                    <li>
-                                        <button className="dropdown-item" type="button">
-                                            Today
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button className="dropdown-item" type="button">
-                                            Yesterday
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button className="dropdown-item" type="button">
-                                            Last Week
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button className="dropdown-item" type="button">
-                                            Last Month
-                                        </button>
-                                    </li>
-                                </ul>
+                        <div className="flex gap-[15px]">
+                            <Link to="chats">
+                                <FontAwesomeIcon icon={faExpand} />
+                            </Link>
+                            <div className="relative">
+                                <button type="button" onClick={setChatOptionDropdown.toggle}>
+                                    Today
+                                    <span className="text-[12px] inline-block ml-1">
+                                        <FontAwesomeIcon icon={faAngleDown} />
+                                    </span>
+                                </button>
+                                <div
+                                    className={`dropdown top-[calc(100%_+_8px)] ${chatOptionDropdown ? 'active' : ''}`}
+                                    ref={chatOptionDropdownRef}
+                                >
+                                    <ul>
+                                        <li>
+                                            <button className="dropdown-item" type="button">
+                                                Today
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button className="dropdown-item" type="button">
+                                                Yesterday
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button className="dropdown-item" type="button">
+                                                Last Week
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button className="dropdown-item" type="button">
+                                                Last Month
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="h-[324px] overflow-x-hidden overflow-y-scroll">
-                        <MessageList msglist={activeChatMesssages} currentUserId={currentUserId} />
+                        {activeChatMesssages ? (
+                            <MessageList msglist={activeChatMesssages} currentUserId={currentUserId} />
+                        ) : (
+                            <div className="pb-[60px] h-full flex items-center justify-center">
+                                <div>
+                                    <div className="w-[200px] h-auto mb-[5px]">
+                                        <img src={Images.sendFriendsMessageIlus} alt="" />
+                                    </div>
+                                    <h2 className="text-[15px] text-dark-500">
+                                        Say Hi to your friends <span className="shake">✋</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <div className="pb-4">
                         <MessageInput
