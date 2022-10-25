@@ -13,7 +13,6 @@ const setCurrentUserPeersAction = (state, { payload }) => {
         state.currentUser.peers = payload;
     } else {
         const { peers } = state.allUsers.find((user) => user.uid === state.currentUser.uid);
-        console.log(peers);
         state.currentUser.peers = peers;
     }
 };

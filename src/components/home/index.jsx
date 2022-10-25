@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateMarketData } from '../../features/market/marketSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
+import useSendMessage from '../../hooks/useSendMessage';
 import * as Images from '../../images';
 import BarChart from '../charts/positiveNegativeBarChart';
 import Layout from '../globals/layout';
@@ -26,9 +27,9 @@ function Home() {
     });
 
     const dispatch = useDispatch();
-    const { sales: salesData } = useSelector((store) => store);
-    const { market: marketData } = useSelector((store) => store);
-    const { uid } = useSelector((store) => store.users.currentUser);
+    const { sales: salesData, market: marketData, users } = useSelector((store) => store);
+    const { uid: currentUserId } = users.currentUser;
+    const { messages: activeChatMesssages, messageRoomPath } = users.currentActiveChat;
 
     const periods = {
         all: 0.2,
@@ -48,6 +49,10 @@ function Home() {
         });
         event.currentTarget.classList.add('active');
     }
+
+    // const send message
+    const messageInputRef = useRef();
+    const sendMessage = useSendMessage(messageInputRef);
 
     useEffect(() => {
         marketDatatoggleBtns = marketButtonsRef.current.querySelectorAll('button');
@@ -433,10 +438,17 @@ function Home() {
                         </div>
                     </div>
                     <div className="h-[324px] overflow-x-hidden overflow-y-scroll">
-                        <MessageList msglist={[]} currentUserId={uid} />
+                        <MessageList msglist={activeChatMesssages} currentUserId={currentUserId} />
                     </div>
                     <div className="pb-4">
-                        <MessageInput />
+                        <MessageInput
+                            onSubmit={(event) => {
+                                event.preventDefault();
+                                sendMessage();
+                            }}
+                            ref={messageInputRef}
+                            disabled={!messageRoomPath}
+                        />
                     </div>
                 </div>
             </div>

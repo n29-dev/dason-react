@@ -2,20 +2,17 @@
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeContact, setCurrentActiveChatMessageRoomPath } from '../../features/users/usersSlice';
+import { useSelector } from 'react-redux';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
+import useSendMessage from '../../hooks/useSendMessage';
 import * as Images from '../../images';
-import { sendMessage } from '../messages/actions';
 import MessageInput from '../messages/messageInput';
 import MessageList from '../messages/messageList';
-import { createPeer } from './actions';
 
 function ChatBox() {
     const [optionDropdown, setOptionDropdown, optionDropdownRef] = useDropdownToggle(false, {
         outClickClose: true,
     });
-    const dispatch = useDispatch();
 
     const { currentUser, currentActiveChat } = useSelector((store) => store.users);
 
@@ -23,7 +20,6 @@ function ChatBox() {
         displayName: activeChatDisplayName,
         uid: currentActiveChatId,
         messages: activeChatMessages,
-        messageRoomPath,
     } = currentActiveChat;
 
     const { displayName: currentUserDisplayName, uid: currentUserId } = currentUser;
@@ -31,30 +27,7 @@ function ChatBox() {
     // send message
     const messageInputRef = useRef();
 
-    // if current active chat is not peer
-    async function sendUserMessage(event) {
-        event.preventDefault();
-
-        const messageBody = messageInputRef.current.value;
-        // if messageBody only contains space return
-        if (messageBody.trim() === '') {
-            console.log(messageBody);
-            return;
-        }
-
-        if (messageRoomPath) {
-            sendMessage(messageRoomPath, currentUserId, messageBody);
-        } else {
-            const messageRoomPath = await createPeer(currentUserId, currentActiveChatId);
-            setCurrentActiveChatMessageRoomPath(messageRoomPath);
-
-            sendMessage(messageRoomPath, currentUserId, messageBody);
-            // set message list for current active chat
-            dispatch(removeContact(currentActiveChatId));
-        }
-
-        messageInputRef.current.value = '';
-    }
+    const sendMessage = useSendMessage(messageInputRef);
 
     return (
         <div className="h-full relative">
@@ -120,7 +93,8 @@ function ChatBox() {
             <div className="absolute bottom-0 w-full pb-[20px] bg-[#fff]">
                 <MessageInput
                     onSubmit={(event) => {
-                        sendUserMessage(event);
+                        event.preventDefault();
+                        sendMessage();
                     }}
                     ref={messageInputRef}
                     disabled={currentActiveChatId === currentUserId}
