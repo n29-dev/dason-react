@@ -3,7 +3,6 @@ import { Navigate, Outlet } from 'react-router-dom';
 import MessageObserver from '../observers/messageObserver';
 
 function AuthRoute({ redirectPath = '/login', children }) {
-    // const { currentUser } = useSelector((store) => store);
     const { currentUser } = useSelector((store) => store.users);
 
     if (currentUser?.uid) {

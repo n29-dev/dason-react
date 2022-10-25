@@ -18,9 +18,6 @@ import { getCookie } from '../lib/cookie';
 function AuthObserver({ children }) {
     const dispatch = useDispatch();
 
-    // set loading to true on pause content render
-    dispatch(setLoading(true));
-
     async function getAndFilterAllUsers(currentActiveChatId) {
         const allUsersRef = collection(db, 'users');
         const allUsers = await getAllDocs(allUsersRef);
@@ -41,6 +38,7 @@ function AuthObserver({ children }) {
         // listener for auth state change, also fires initially
         onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
+                dispatch(setLoading(true));
                 const { uid, displayName, email, photoURL } = currentUser;
                 dispatch(setCurrentUser({ uid, displayName, email, photoURL }));
                 const currentActiveChatId = getCookie('activeChatUser');
