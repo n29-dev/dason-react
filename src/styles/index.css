@@ -170,7 +170,6 @@ button[disabled] {
 }
 
 /* message body */
-
 .msg-body::before {
     content: '';
     position: absolute;
@@ -220,4 +219,17 @@ button[disabled] {
     100% {
         transform: rotate(9deg);
     }
+}
+
+/* form error */
+.error-notice {
+    display: none;
+}
+
+form.error .display-error {
+    border-color: #d93025;
+}
+
+form.error .error-notice {
+    display: block;
 }

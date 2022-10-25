@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faCircleExclamation, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../globals/helpers/button';
 import Input from '../../globals/helpers/input';
@@ -12,6 +12,14 @@ function Login() {
     const formRef = useRef();
     const formSubmitButtonRef = useRef();
     const navigate = useNavigate();
+
+    const [loginErrorMessage, setloginErrorMessage] = useState(null);
+
+    // login error types
+    const loginErrorsTypes = {
+        'auth/user-not-found': 'Your password or username is incorrect',
+        'auth/network-request-failed': 'Your internet connection is lost',
+    };
 
     // create new user
     function loginExistingUser(event) {
@@ -31,16 +39,15 @@ function Login() {
                 navigate('/', { replace: true });
             },
             (error) => {
-                console.log(error);
                 submitBtn.disabled = false;
-                event.target.reset();
+                event.target.classList.add('error');
+                setloginErrorMessage(loginErrorsTypes[error.code]);
             }
         );
     }
 
     useEffect(() => {
         formRef.current.addEventListener('submit', loginExistingUser);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -54,7 +61,7 @@ function Login() {
                         type="email"
                         name="email"
                         placeholder="Email"
-                        classes="mb-6"
+                        classes="mb-6 display-error"
                         required
                     />
                     <Input
@@ -62,9 +69,17 @@ function Login() {
                         type="password"
                         name="password"
                         placeholder="Password"
-                        classes="mb-6"
+                        classes="mb-6 display-error"
                         required
                     />
+                    <div className="error-notice">
+                        <p className="text-[#d93025] text-[12px]">
+                            <span className="inline-block mr-1">
+                                <FontAwesomeIcon icon={faCircleExclamation} />
+                            </span>
+                            {loginErrorMessage || 'Some unknown occured'}
+                        </p>
+                    </div>
                     <Button type="submit" text="Login" classes="block w-full mt-7" ref={formSubmitButtonRef} />
                 </form>
 

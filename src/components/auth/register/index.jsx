@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { faEnvelope, faLock, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faCircleExclamation, faEnvelope, faLock, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setCurrentUser } from '../../../features/users/usersSlice';
@@ -15,6 +15,14 @@ function Register() {
     const formSubmitButtonRef = useRef();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [registrationErrorMessage, setRegistrationErrorMessage] = useState();
+
+    // login error types
+    const registrationErrorsTypes = {
+        'auth/email-already-in-use': 'This email is already in use. Try another one or login',
+        'auth/network-request-failed': 'Your internet connection is lost',
+        'auth/weak-password': 'Password must be atlest 8 characters',
+    };
 
     async function registrationNextProcess(user, username) {
         const updatedUser = await updateUserProfile({
@@ -49,9 +57,9 @@ function Register() {
             },
             // error
             (error) => {
-                console.log(error);
+                setRegistrationErrorMessage(registrationErrorsTypes[error.code]);
+                event.target.classList.add('error');
                 submitBtn.disabled = false;
-                event.target.reset();
             }
         );
     }
@@ -72,7 +80,7 @@ function Register() {
                         type="email"
                         name="email"
                         placeholder="Email"
-                        classes="mb-6"
+                        classes="mb-6 display-error"
                         required
                     />
                     <Input
@@ -80,7 +88,7 @@ function Register() {
                         type="text"
                         name="username"
                         placeholder="Username"
-                        classes="mb-6"
+                        classes="mb-6 display-error"
                         required
                     />
                     <Input
@@ -88,9 +96,17 @@ function Register() {
                         type="password"
                         name="password"
                         placeholder="Password"
-                        classes="mb-6"
+                        classes="mb-6 display-error"
                         required
                     />
+                    <div className="error-notice">
+                        <p className="text-[#d93025] text-[12px] pb-4">
+                            <span className="inline-block mr-1">
+                                <FontAwesomeIcon icon={faCircleExclamation} />
+                            </span>
+                            {registrationErrorMessage || 'Some unknown occured'}
+                        </p>
+                    </div>
                     <p className="pb-9 text-left">
                         By registering you agree to the <span className="text-blue">Terms of Use</span>
                     </p>
