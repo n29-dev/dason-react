@@ -59,10 +59,9 @@ function MessageObserver({ children }) {
     useEffect(() => {
         const clearListener = onSnapshot(doc(db, 'users', `${currentUserId}`), (doc) => {
             const updatedUser = doc.data();
-
             if (updatedUser.peers.length !== currentUserPeers.length) {
-                setCurrentUserPeers(updatedUser.peers);
-                setPeersAndContacts();
+                dispatch(setCurrentUserPeers(updatedUser.peers));
+                dispatch(setPeersAndContacts());
             }
         });
 
