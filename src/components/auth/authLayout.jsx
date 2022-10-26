@@ -6,12 +6,12 @@ function AuthLayout({ children }) {
         <main className="grid grid-cols-[25%_75%] min-h-[100vh] w-full">
             <div className="p-12">
                 <div className="text-center pb-12">
-                    <a className="inline-flex items-center gap-[5px] text-dark-600" href="#">
+                    <div className="inline-flex items-center gap-[5px] text-dark-600" href="#">
                         <span className="w-10 h-10 inline-block">
                             <Logo />
                         </span>
                         <span className="font-bold text-[20px] uppercase">Dason</span>
-                    </a>
+                    </div>
                 </div>
                 {children}
             </div>

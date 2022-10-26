@@ -78,7 +78,7 @@ function ChatBox() {
                 </div>
             </div>
             <div className="h-[calc(100%_-_71px)] overflow-x-hidden overflow-y-scroll pt-8">
-                {activeChatMessages ? (
+                {activeChatMessages?.length ? (
                     <MessageList msglist={activeChatMessages} currentUserId={currentUserId} />
                 ) : (
                     <div className="pb-[80px] h-full flex items-center justify-center">
@@ -87,7 +87,7 @@ function ChatBox() {
                                 <img src={Images.sendFriendsMessageIlus} alt="" />
                             </div>
                             <h2 className="text-[15px] text-dark-500">
-                                Say Hi to your friends <span className="shake">✋</span>
+                                Say Hi to {activeChatDisplayName || 'your friends'} <span className="shake">✋</span>
                             </h2>
                         </div>
                     </div>

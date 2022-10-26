@@ -444,7 +444,7 @@ function Home() {
                         </div>
                     </div>
                     <div className="h-[324px] overflow-x-hidden overflow-y-scroll">
-                        {activeChatMesssages ? (
+                        {activeChatMesssages?.length ? (
                             <MessageList msglist={activeChatMesssages} currentUserId={currentUserId} />
                         ) : (
                             <div className="pb-[60px] h-full flex items-center justify-center">
