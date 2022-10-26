@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-
 function Loading() {
     return (
         <div className="bg-white-400 h-[100vh] w-full flex items-center justify-center">

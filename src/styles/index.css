@@ -233,3 +233,12 @@ form.error .display-error {
 form.error .error-notice {
     display: block;
 }
+
+/* toast notification */
+.notification {
+    min-width: 180px;
+    border-radius: 2px !important;
+    background: #f5f5f5;
+    color: #2b3940;
+    position: relative;
+}

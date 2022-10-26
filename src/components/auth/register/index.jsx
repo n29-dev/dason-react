@@ -2,6 +2,7 @@
 import { faCircleExclamation, faEnvelope, faLock, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setCurrentUser } from '../../../features/users/usersSlice';
@@ -48,15 +49,23 @@ function Register() {
         // make submit button disabled
         submitBtn.disabled = true;
 
+        const notificationId = toast.loading('..Loading');
+
         createNewUser(
             email,
             password,
             // success
             (user) => {
+                toast('Registration Successful', {
+                    id: notificationId,
+                });
                 registrationNextProcess(user, username);
             },
             // error
             (error) => {
+                toast('Registration Failed', {
+                    id: notificationId,
+                });
                 setRegistrationErrorMessage(registrationErrorsTypes[error.code]);
                 event.target.classList.add('error');
                 submitBtn.disabled = false;

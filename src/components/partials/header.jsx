@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Logo from 'Images/logo-sm.svg';
 import UserAvatar from 'Images/users/avatar-1.jpg';
 import userAvatar3 from 'Images/users/avatar-3.jpg';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
@@ -48,6 +49,7 @@ function Header() {
             () => {
                 dispatch(setCurrentUser({}));
                 navigate('/login', { replace: true });
+                toast('Logout Successful');
             },
             (error) => {
                 console.log(error);

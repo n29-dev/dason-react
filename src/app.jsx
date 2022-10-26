@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import Loading from './components/helpers/loading';
 import Router from './router';
@@ -9,7 +10,17 @@ function App() {
         return <Loading />;
     }
 
-    return <Router />;
+    return (
+        <>
+            <Toaster
+                position="bottom-right"
+                toastOptions={{
+                    className: 'notification',
+                }}
+            />
+            <Router />;
+        </>
+    );
 }
 
 export default App;

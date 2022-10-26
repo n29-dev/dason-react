@@ -2,6 +2,7 @@
 import { faCircleExclamation, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../helpers/button';
 import Input from '../../helpers/input';
@@ -25,6 +26,8 @@ function Login() {
     function loginExistingUser(event) {
         event.preventDefault();
 
+        const notificationId = toast.loading('..Loading');
+
         const email = event.target.email.value;
         const password = event.target.password.value;
 
@@ -36,9 +39,15 @@ function Login() {
             email,
             password,
             () => {
+                toast('Login Successful', {
+                    id: notificationId,
+                });
                 navigate('/', { replace: true });
             },
             (error) => {
+                toast('Login Failed', {
+                    id: notificationId,
+                });
                 submitBtn.disabled = false;
                 event.target.classList.add('error');
                 setloginErrorMessage(loginErrorsTypes[error.code]);
