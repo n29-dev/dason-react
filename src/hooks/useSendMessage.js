@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { createPeer } from '../components/chats/actions';
-import { sendMessage } from '../components/messages/actions';
+import { createPeer } from '../components/chats/helpers';
+import { sendMessage } from '../components/messages/helpers';
 import { removeContact, setCurrentActiveChatMessageRoomPath } from '../features/users/usersSlice';
 
 function useSendMessage(messageInputRef) {

@@ -3,10 +3,10 @@ import { faCircleExclamation, faEnvelope, faLock } from '@fortawesome/free-solid
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Button from '../../globals/helpers/button';
-import Input from '../../globals/helpers/input';
-import { logInUser } from '../actions';
+import Button from '../../helpers/button';
+import Input from '../../helpers/input';
 import AuthLayout from '../authLayout';
+import { logInUser } from '../helpers';
 
 function Login() {
     const formRef = useRef();

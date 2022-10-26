@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import Sidebar from '../sidebar';
 import Header from './header';
+import Sidebar from './sidebar';
 
 function Layout({ children }) {
     const { open } = useSelector((store) => store.sidebar);

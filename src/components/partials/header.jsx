@@ -21,8 +21,8 @@ import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import { setCurrentUser } from '../../features/users/usersSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
-import { logOutUser } from '../auth/actions';
-import { closeAll } from '../sidebar';
+import { logOutUser } from '../auth/helpers';
+import { closeAll } from './sidebar';
 
 function Header() {
     const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { collection } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { batch, useDispatch } from 'react-redux';
-import { getAllDocs } from '../components/chats/actions';
+import { getAllDocs } from '../components/helpers';
 import { setLoading } from '../features/loading/loadingSlice';
 import {
     setAllUsersList,

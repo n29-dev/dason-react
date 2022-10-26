@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import Loading from './components/globals/loading';
+import Loading from './components/helpers/loading';
 import Router from './router';
 
 function App() {

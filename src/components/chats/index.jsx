@@ -7,7 +7,7 @@ import { setCurrentActiveChat, setCurrentActiveChatMessage } from '../../feature
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
 import { setCookie } from '../../lib/cookie';
-import Layout from '../globals/layout';
+import Layout from '../partials/layout';
 import ChatBox from './chatBox';
 import ChatList from './chatList';
 

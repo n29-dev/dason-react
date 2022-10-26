@@ -4,9 +4,9 @@ import { faComment, faEnvelope, faFileLines } from '@fortawesome/free-regular-sv
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useSubmenuToggle from '../../hooks/useSubmenuToggle';
-import * as Images from '../../images';
-import Button from '../globals/helpers/button';
+import useSubmenuToggle from '../../../hooks/useSubmenuToggle';
+import * as Images from '../../../images';
+import Button from '../../helpers/button';
 import MenuItem from './menuItems';
 import SubMenu from './subMenu';
 

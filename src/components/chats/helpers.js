@@ -1,18 +1,6 @@
 /* eslint-disable no-shadow */
-import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
-
-// function for getting all docs from a collection
-async function getAllDocs(colRef) {
-    let querySnapshot;
-    try {
-        querySnapshot = await getDocs(colRef);
-    } catch (error) {
-        console.log(error);
-    }
-
-    return querySnapshot.docs.map((doc) => doc.data());
-}
 
 // function create peer
 async function createPeer(currentUserId, peerUserId) {
@@ -53,4 +41,4 @@ async function createPeer(currentUserId, peerUserId) {
     return messageRoom.path;
 }
 
-export { getAllDocs, createPeer };
+export { createPeer };

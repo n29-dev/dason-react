@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import Loading from '../components/globals/loading';
+import Loading from '../components/helpers/loading';
 
 function GuestRoute({ redirectPath = '/', element: Component }) {
     const { user } = useSelector((store) => store);

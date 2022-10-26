@@ -5,10 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setCurrentUser } from '../../../features/users/usersSlice';
-import Button from '../../globals/helpers/button';
-import Input from '../../globals/helpers/input';
-import { addUserToDb, createNewUser, updateUserProfile } from '../actions';
+import Button from '../../helpers/button';
+import Input from '../../helpers/input';
 import AuthLayout from '../authLayout';
+import { addUserToDb, createNewUser, updateUserProfile } from '../helpers';
 
 function Register() {
     const formRef = useRef();
