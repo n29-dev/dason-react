@@ -18,7 +18,7 @@ function App() {
                     className: 'notification',
                 }}
             />
-            <Router />;
+            <Router />
         </>
     );
 }

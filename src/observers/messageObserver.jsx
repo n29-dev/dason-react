@@ -1,9 +1,8 @@
 import { collection, doc, getDocs, limit, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPeerMessageList } from '../features/messages/messagesSlice';
+import { setMessageLoading, setPeerMessageList } from '../features/messages/messagesSlice';
 import { setCurrentActiveChatMessage, setCurrentUserPeers, setPeersAndContacts } from '../features/users/usersSlice';
-
 import { db } from '../firebase';
 import store from '../store/store';
 
@@ -14,7 +13,7 @@ function MessageObserver({ children }) {
     const { uid: currentUserId, peers: currentUserPeers } = currentUser;
 
     // fetch peer messages
-    async function getPeerMessages(peer) {
+    async function getPeerMessages(peer, updateLoading) {
         const messagesRef = collection(db, peer.messageRoomPath, 'messages');
         const q = query(messagesRef, orderBy('created', 'desc'), limit(15));
 
@@ -41,6 +40,10 @@ function MessageObserver({ children }) {
                 if (currentActiveChatId && peer.peerId === currentActiveChatId) {
                     store.dispatch(setCurrentActiveChatMessage(peerMessages));
                 }
+
+                if (updateLoading) {
+                    dispatch(setMessageLoading(false));
+                }
             }
         } catch (error) {
             console.log(error);
@@ -48,9 +51,14 @@ function MessageObserver({ children }) {
     }
 
     function observeMessageRooms(currentUserPeers) {
-        return currentUserPeers.map((peer) =>
+        return currentUserPeers.map((peer, index, array) =>
             onSnapshot(doc(db, peer.messageRoomPath), () => {
-                getPeerMessages(peer);
+                // update message loading from last after last peer resolves
+                if (index === array.length - 1) {
+                    getPeerMessages(peer, true);
+                } else {
+                    getPeerMessages(peer);
+                }
             })
         );
     }

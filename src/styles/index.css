@@ -242,3 +242,17 @@ form.error .error-notice {
     color: #2b3940;
     position: relative;
 }
+/* skeleton loader */
+
+@keyframes skeletonFade {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.6;
+    }
+}
+
+.skeleton {
+    animation: skeletonFade 1s linear infinite alternate;
+}

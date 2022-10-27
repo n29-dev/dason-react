@@ -9,6 +9,7 @@ import useDropdownToggle from '../../hooks/useDropdownToggle';
 import useSendMessage from '../../hooks/useSendMessage';
 import * as Images from '../../images';
 import BarChart from '../charts/positiveNegativeBarChart';
+import MessagesLoader from '../messages/loader';
 import MessageInput from '../messages/messageInput';
 import MessageList from '../messages/messageList';
 import Layout from '../partials/layout';
@@ -31,6 +32,7 @@ function Home() {
     const { sales: salesData, market: marketData, users } = useSelector((store) => store);
     const { uid: currentUserId } = users.currentUser;
     const { messages: activeChatMesssages, messageRoomPath } = users.currentActiveChat;
+    const { loading } = useSelector((store) => store.messages);
 
     const periods = {
         all: 0.2,
@@ -444,7 +446,9 @@ function Home() {
                         </div>
                     </div>
                     <div className="h-[324px] overflow-x-hidden overflow-y-scroll">
-                        {activeChatMesssages?.length ? (
+                        {loading ? (
+                            <MessagesLoader messages={Array(5).fill('a')} classes="pb-10" />
+                        ) : activeChatMesssages?.length ? (
                             <MessageList msglist={activeChatMesssages} currentUserId={currentUserId} />
                         ) : (
                             <div className="pb-[60px] h-full flex items-center justify-center">
