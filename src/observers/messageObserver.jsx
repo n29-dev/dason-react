@@ -53,7 +53,7 @@ function MessageObserver({ children }) {
     function observeMessageRooms(currentUserPeers) {
         return currentUserPeers.map((peer, index, array) =>
             onSnapshot(doc(db, peer.messageRoomPath), () => {
-                // update message loading from last after last peer resolves
+                // update message loading after last peer resolves
                 if (index === array.length - 1) {
                     getPeerMessages(peer, true);
                 } else {
@@ -77,7 +77,12 @@ function MessageObserver({ children }) {
     }, []);
 
     useEffect(() => {
-        const clearListenersArray = observeMessageRooms(currentUserPeers);
+        // if current user peers are empty set message loading to false
+        if(currentUserPeers.length < 1){
+            dispatch(setMessageLoading(false));
+        }else{
+            const clearListenersArray = observeMessageRooms(currentUserPeers);
+        }
 
         // clear listeners
         return () => {

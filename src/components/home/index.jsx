@@ -447,7 +447,7 @@ function Home() {
                     </div>
                     <div className="h-[324px] overflow-x-hidden overflow-y-scroll">
                         {loading ? (
-                            <MessagesLoader messages={Array(5).fill('a')} classes="pb-10" />
+                            <MessagesLoader times={Array(5).fill('a')} classes="pb-10" />
                         ) : activeChatMesssages?.length ? (
                             <MessageList msglist={activeChatMesssages} currentUserId={currentUserId} />
                         ) : (

@@ -24,10 +24,10 @@ function MessageSkeleton({ index, classes }) {
     );
 }
 
-function MessagesLoader({ messages, classes }) {
+function MessagesLoader({ times, classes }) {
     return (
         <ul>
-            {messages.map((el, index) => (
+            {times.map((el, index) => (
                 <MessageSkeleton index={index} classes={classes} key={Math.random() * Math.random()} />
             ))}
         </ul>

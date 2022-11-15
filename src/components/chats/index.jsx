@@ -146,7 +146,7 @@ function Chats() {
                                 <ChatList chatList={peers} currentUserId={uid} itemClickHandler={chatItemHandler} />
                             </div>
                             <div
-                                className={`h-[calc(100% - 40px)] overflow-x-hidden overflow-y-scroll ${
+                                className={`h-[calc(100%_-_40px)] overflow-x-hidden overflow-y-scroll ${
                                     activeTab === 'contact' ? '' : 'hidden'
                                 }`}
                             >
