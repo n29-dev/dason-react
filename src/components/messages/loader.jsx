@@ -4,7 +4,7 @@ import React from 'react';
 function MessageSkeleton({ index, classes }) {
     const recieved = index % 2 === 0;
     return (
-        <li className={`${classes || 'pb-2'}`}>
+        <li className={`${classes || 'pb-2 px-4'}`}>
             <div className={`msg flex gap-3 ${recieved ? 'flex-row-reverse' : ''}`}>
                 <div
                     className="flex-shrink-0 w-[32px] h-[32px] rounded-full

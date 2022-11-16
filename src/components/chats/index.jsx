@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-bind */
 import { faEllipsis, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
+import { toggleChatsTab } from '../../features/chatsTab/chatsTabSlice';
 import { setCurrentActiveChat, setCurrentActiveChatMessage } from '../../features/users/usersSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import * as Images from '../../images';
@@ -19,7 +19,8 @@ function Chats() {
     const dispatch = useDispatch();
 
     // tab state
-    const [activeTab, setActiveTab] = useState('chat');
+    // const [activeTab, setActiveTab] = useState('chat');
+    const { open: activeTab } = useSelector((store) => store.chatsTab);
 
     const { currentUser, contacts, peers } = useSelector((store) => store.users);
     const { messages } = useSelector((store) => store);
@@ -121,7 +122,7 @@ function Chats() {
                                     }`}
                                     type="button"
                                     onClick={() => {
-                                        setActiveTab('chat');
+                                        dispatch(toggleChatsTab('chat'));
                                     }}
                                 >
                                     Chat
@@ -132,7 +133,7 @@ function Chats() {
                                         activeTab === 'contact' ? 'bg-blue text-white' : 'bg-transparent text-dark-500'
                                     }`}
                                     onClick={() => {
-                                        setActiveTab('contact');
+                                        dispatch(toggleChatsTab('contact'));
                                     }}
                                 >
                                     Contact

@@ -14,6 +14,7 @@ function ChatList({ chatList, itemClickHandler }) {
                             itemClickHandler(uid);
                         }}
                         key={uid}
+                        uid={uid}
                     />
                 );
             })}

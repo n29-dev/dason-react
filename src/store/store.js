@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import chatsTabReducer from '../features/chatsTab/chatsTabSlice';
 import loadingReducer from '../features/loading/loadingSlice';
 import marketReducer from '../features/market/marketSlice';
 import messagesReducer from '../features/messages/messagesSlice';
@@ -15,6 +16,7 @@ const store = configureStore({
         loading: loadingReducer,
         messages: messagesReducer,
         users: usersReducer,
+        chatsTab: chatsTabReducer,
     },
 });
 

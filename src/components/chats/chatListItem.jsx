@@ -1,4 +1,9 @@
-function ChatListItem({ photoUrl, username, clickHandler }) {
+import { useSelector } from 'react-redux';
+
+function ChatListItem({ photoUrl, username, clickHandler, uid }) {
+    const messages = useSelector((store) => store.messages[uid]);
+    console.log(messages);
+
     return (
         <li className="hover:cursor-pointer" onClick={clickHandler}>
             <div className="flex items-start gap-4 px-6 py-4 hover:bg-[#1c85ed12]">
@@ -11,7 +16,7 @@ function ChatListItem({ photoUrl, username, clickHandler }) {
                 </div>
                 <div>
                     <h5 className="text-dark-500 font-medium text-[14px] leading-[20px]">{username}</h5>
-                    <p>Say 'hi !' to your friend</p>
+                    {messages ? <p>{messages[messages.length - 1].messageBody}</p> : <p>Say 'hi !' to your friend</p>}
                 </div>
             </div>
         </li>

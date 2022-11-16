@@ -6,8 +6,8 @@ const sidebar = createSlice({
         open: true,
     },
     reducers: {
-        toggleSidebar: (slice) => {
-            slice.open = !slice.open;
+        toggleSidebar: (state) => {
+            state.open = !state.open;
         },
     },
 });

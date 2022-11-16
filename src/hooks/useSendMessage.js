@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { createPeer } from '../components/chats/helpers';
 import { sendMessage } from '../components/messages/helpers';
+import { toggleChatsTab } from '../features/chatsTab/chatsTabSlice';
 import { removeContact, setCurrentActiveChatMessageRoomPath } from '../features/users/usersSlice';
 
 function useSendMessage(messageInputRef) {
@@ -25,7 +26,9 @@ function useSendMessage(messageInputRef) {
             setCurrentActiveChatMessageRoomPath(messageRoomPath);
             // remove contact
             dispatch(removeContact(currentActiveChatId));
-            sendMessage(messageRoomPath, currentUserId, messageBody);
+
+            await sendMessage(messageRoomPath, currentUserId, messageBody);
+            dispatch(toggleChatsTab('chat'));
         }
     };
 
