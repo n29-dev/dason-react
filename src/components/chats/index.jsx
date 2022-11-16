@@ -46,7 +46,7 @@ function Chats() {
                     </ul>
                 </div>
                 <div className="grid grid-cols-[30%,_70%] gap-2 h-full">
-                    <div className="component-default p-0 h-[500px]">
+                    <div className="component-default p-0 h-[calc(100vh_-_145px)]">
                         <div className="px-6 py-4 flex justify-between">
                             <div className="flex items-center gap-4">
                                 <div className="flex-shrink-0">
@@ -154,7 +154,7 @@ function Chats() {
                             </div>
                         </div>
                     </div>
-                    <div className="component-default p-0 h-[500px]">
+                    <div className="component-default p-0 h-[calc(100vh_-_145px)]">
                         <ChatBox />
                     </div>
                 </div>

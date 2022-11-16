@@ -82,12 +82,12 @@ function MessageObserver({ children }) {
             dispatch(setMessageLoading(false));
         }else{
             const clearListenersArray = observeMessageRooms(currentUserPeers);
+            
+            // clear listeners
+            return () => {
+                clearListenersArray.forEach((func) => func());
+            };
         }
-
-        // clear listeners
-        return () => {
-            clearListenersArray.forEach((func) => func());
-        };
     }, [currentUserPeers]);
 
     return children;
