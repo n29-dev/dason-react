@@ -1,4 +1,6 @@
 import { getDocs } from 'firebase/firestore';
+import { ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../../firebase';
 
 // function for getting all docs from a collection
 async function getAllDocs(colRef) {
@@ -12,4 +14,18 @@ async function getAllDocs(colRef) {
     return querySnapshot.docs.map((doc) => doc.data());
 }
 
-export { getAllDocs };
+// function for uploading files
+async function uploadFile(filePath, file) {
+    const fileRef = ref(storage, filePath);
+    let uploadResult;
+
+    try {
+        uploadResult = await uploadBytes(fileRef, file);
+    } catch (error) {
+        console.log(error);
+    }
+
+    return uploadResult;
+}
+
+export { getAllDocs, uploadFile };

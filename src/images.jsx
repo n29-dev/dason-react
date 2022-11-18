@@ -46,6 +46,7 @@ import Logo from 'Images/logo-sm.svg';
 import mapsIcon from 'Images/maps.svg';
 import newspaperIcon from 'Images/newspaper.svg';
 import shareIcon from 'Images/share.svg';
+import UploadProfile from 'Images/upload-profile.png';
 
 export {
     ProductImg1,
@@ -93,6 +94,7 @@ export {
     newspaperIcon,
     shareIcon,
     sendFriendsMessageIlus,
+    UploadProfile,
 };
 // eslint-disable-next-line prettier/prettier
 

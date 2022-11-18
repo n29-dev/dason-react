@@ -9,6 +9,7 @@ import useDropdownToggle from '../../hooks/useDropdownToggle';
 import useSendMessage from '../../hooks/useSendMessage';
 import * as Images from '../../images';
 import BarChart from '../charts/positiveNegativeBarChart';
+import Modal from '../helpers/modal';
 import MessagesLoader from '../messages/loader';
 import MessageInput from '../messages/messageInput';
 import MessageList from '../messages/messageList';
@@ -16,6 +17,7 @@ import Layout from '../partials/layout';
 import Customer from './customer';
 import Product from './product';
 import ShopOverview from './shopOverview';
+import UploadProfilePic from './uploadProflePic';
 
 function Home() {
     let marketDatatoggleBtns;
@@ -62,9 +64,17 @@ function Home() {
         marketDatatoggleBtns.forEach((btn) => btn.addEventListener('click', updateMarketOverviewData));
     }, []);
 
+    // modal
+    // const [modalOpen, setModalOpen] = useState(true);
+
     return (
         <Layout>
             <div className="grid grid-cols-[66%,_34%] gap-6 mr-6">
+                {/* {modalOpen && ( */}
+                <Modal classes="w-[750px]">
+                    <UploadProfilePic />
+                </Modal>
+                {/* )} */}
                 {/* breadcrumbs */}
                 <div className="flex justify-between items-center mb-5 col-start-1 col-end-3">
                     <h1 className="text-[18px] font-semibold text-dark-500">Welcome !</h1>
