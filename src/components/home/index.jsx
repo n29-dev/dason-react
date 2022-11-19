@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { faAngleDown, faArrowRight, faExpand } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { updateMarketData } from '../../features/market/marketSlice';
@@ -65,16 +65,20 @@ function Home() {
     }, []);
 
     // modal
-    // const [modalOpen, setModalOpen] = useState(true);
+    const [modalOpen, setModalOpen] = useState(true);
 
     return (
         <Layout>
             <div className="grid grid-cols-[66%,_34%] gap-6 mr-6">
-                {/* {modalOpen && ( */}
-                <Modal classes="w-[750px]">
-                    <UploadProfilePic />
-                </Modal>
-                {/* )} */}
+                {modalOpen && (
+                    <Modal classes="w-[750px]">
+                        <UploadProfilePic
+                            closeModal={() => {
+                                setModalOpen(false);
+                            }}
+                        />
+                    </Modal>
+                )}
                 {/* breadcrumbs */}
                 <div className="flex justify-between items-center mb-5 col-start-1 col-end-3">
                     <h1 className="text-[18px] font-semibold text-dark-500">Welcome !</h1>

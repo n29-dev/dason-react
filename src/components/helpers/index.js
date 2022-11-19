@@ -1,5 +1,5 @@
 import { getDocs } from 'firebase/firestore';
-import { ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../firebase';
 
 // function for getting all docs from a collection
@@ -28,4 +28,18 @@ async function uploadFile(filePath, file) {
     return uploadResult;
 }
 
-export { getAllDocs, uploadFile };
+// function for creating download url
+
+async function getDownloadUrl(filePath) {
+    let fileDownloadUrl;
+
+    try {
+        fileDownloadUrl = await getDownloadURL(ref(storage, filePath));
+    } catch (error) {
+        console.log(error);
+    }
+
+    return fileDownloadUrl;
+}
+
+export { getAllDocs, uploadFile, getDownloadUrl };

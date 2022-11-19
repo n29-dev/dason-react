@@ -6,12 +6,15 @@ import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { UploadProfile } from '../../images';
-import { uploadFile } from '../helpers';
+import { updateUserProfile } from '../auth/helpers';
+import { getDownloadUrl, uploadFile } from '../helpers';
 import Button from '../helpers/button';
 import FileDropzone from '../helpers/fileDropzone';
 
-function UploadProfilePic() {
+function UploadProfilePic({ closeModal }) {
     const { displayName, email, uid } = useSelector((store) => store.users.currentUser);
+    const { currentUser } = useSelector((store) => store.users);
+    console.log(currentUser);
 
     // store and upload pic
     const [files, setFiles] = useState([]);
@@ -41,17 +44,38 @@ function UploadProfilePic() {
         const ext = files[0].name.match(/\.[0-9a-z]+$/i)[0];
         const uploadResult = await uploadFile(`users/profile_photo/${uid}${ext}`, files[0]);
 
-        if (uploadResult) {
-            toast('Upload Successful', {
-                id: notificationId,
-            });
-        } else {
+        // if upload not successfull
+        if (!uploadResult) {
             toast('Upload Failed', {
                 id: notificationId,
             });
 
             submitBtnRef.current.disabled = false;
+
+            return;
         }
+
+        const downloadURL = await getDownloadUrl(uploadResult.metadata.fullPath);
+
+        // if download url generaton is not successful
+        if (!downloadURL) {
+            toast('Upload Failed', {
+                id: notificationId,
+            });
+            submitBtnRef.current.disabled = false;
+
+            return;
+        }
+
+        toast('Upload Successful', {
+            id: notificationId,
+        });
+
+        updateUserProfile({
+            photoURL: downloadURL,
+        });
+
+        closeModal();
     }
 
     return (
