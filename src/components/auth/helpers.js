@@ -73,4 +73,15 @@ async function addUserToDb(uid, username) {
     }
 }
 
-export { createNewUser, updateUserProfile, logInUser, logOutUser, addUserToDb };
+// update user on db
+async function updateUserOnDb(uid, updateProps) {
+    const usersCollectionRef = collection(db, 'users');
+
+    try {
+        await setDoc(doc(usersCollectionRef, uid), updateProps, { merge: true });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { createNewUser, updateUserProfile, logInUser, logOutUser, addUserToDb, updateUserOnDb };

@@ -4,15 +4,17 @@ import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser } from '../../features/users/usersSlice';
 import { UploadProfile } from '../../images';
-import { updateUserProfile } from '../auth/helpers';
+import { updateUserOnDb, updateUserProfile } from '../auth/helpers';
 import { getDownloadUrl, uploadFile } from '../helpers';
 import Button from '../helpers/button';
 import FileDropzone from '../helpers/fileDropzone';
 
 function UploadProfilePic({ closeModal }) {
     const { displayName, email, uid } = useSelector((store) => store.users.currentUser);
+    const dispatch = useDispatch();
 
     // store and upload pic
     const [files, setFiles] = useState([]);
@@ -69,7 +71,13 @@ function UploadProfilePic({ closeModal }) {
             id: notificationId,
         });
 
+        dispatch(setCurrentUser({ photoURL: downloadURL }));
+
         updateUserProfile({
+            photoURL: downloadURL,
+        });
+
+        updateUserOnDb(uid, {
             photoURL: downloadURL,
         });
 
@@ -107,7 +115,7 @@ function UploadProfilePic({ closeModal }) {
                     classes="h-[180px] mb-5"
                     onDrop={onDrop}
                     accept={{ 'image/*': ['.jpeg', '.png', '.jpg'] }}
-                    maxSize={2048}
+                    maxSize={1000 * 1000 * 2}
                 />
                 <Button
                     type="submit"
