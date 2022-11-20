@@ -13,8 +13,6 @@ import FileDropzone from '../helpers/fileDropzone';
 
 function UploadProfilePic({ closeModal }) {
     const { displayName, email, uid } = useSelector((store) => store.users.currentUser);
-    const { currentUser } = useSelector((store) => store.users);
-    console.log(currentUser);
 
     // store and upload pic
     const [files, setFiles] = useState([]);
@@ -109,6 +107,7 @@ function UploadProfilePic({ closeModal }) {
                     classes="h-[180px] mb-5"
                     onDrop={onDrop}
                     accept={{ 'image/*': ['.jpeg', '.png', '.jpg'] }}
+                    maxSize={2048}
                 />
                 <Button
                     type="submit"

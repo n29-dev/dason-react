@@ -34,7 +34,11 @@ function Register() {
         const { uid, displayName, email, photoURL } = updatedUser;
         dispatch(setCurrentUser({ uid, displayName, email, photoURL }));
 
-        navigate('/');
+        navigate('/', {
+            state: {
+                newUser: true,
+            },
+        });
     }
 
     // create new user

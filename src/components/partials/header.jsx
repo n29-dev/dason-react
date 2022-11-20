@@ -13,7 +13,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Logo from 'Images/logo-sm.svg';
-import UserAvatar from 'Images/users/avatar-1.jpg';
 import userAvatar3 from 'Images/users/avatar-3.jpg';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +28,7 @@ function Header() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { displayName } = useSelector((store) => store.users.currentUser);
+    const { displayName, photoURL } = useSelector((store) => store.users.currentUser);
 
     const [languageDropdown, setLanguageDropdown, languageDropdownRef] = useDropdownToggle(false, {
         outClickClose: true,
@@ -313,7 +312,8 @@ function Header() {
                             type="button"
                             onClick={setProfileDropdown.toggle}
                         >
-                            <img className="w-9 h-9 rounded-full border-2 border-[#ffffff40]" src={UserAvatar} alt="" />
+                            {/* user avatar */}
+                            <img className="w-9 h-9 rounded-full border-2 border-[#ffffff40]" src={photoURL} alt="" />
                             <span>{displayName}</span>
                             <span>
                                 <FontAwesomeIcon icon={faAngleDown} />

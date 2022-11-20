@@ -13,11 +13,9 @@ const rejectStyle = {
     borderColor: '#ff1744',
 };
 
-function FileDropzone({ text, onDrop, classes, accept, multiple }) {
+function FileDropzone({ text, classes, ...args }) {
     const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
-        accept,
-        onDrop,
-        multiple,
+        ...args,
     });
 
     const style = useMemo(

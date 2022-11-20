@@ -12,7 +12,6 @@ const setCurrentUserPeersAction = (state, { payload }) => {
     if (payload) {
         state.currentUser.peers = payload;
     } else {
-        console.log(state.allUsers);
         const { peers } = state.allUsers.find((user) => user.uid === state.currentUser.uid);
         state.currentUser.peers = peers;
     }

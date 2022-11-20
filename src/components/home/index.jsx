@@ -3,7 +3,7 @@ import { faAngleDown, faArrowRight, faExpand } from '@fortawesome/free-solid-svg
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { updateMarketData } from '../../features/market/marketSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
 import useSendMessage from '../../hooks/useSendMessage';
@@ -65,7 +65,9 @@ function Home() {
     }, []);
 
     // modal
-    const [modalOpen, setModalOpen] = useState(true);
+    const location = useLocation();
+    console.log(location.state?.newUser);
+    const [modalOpen, setModalOpen] = useState(location.state?.newUser);
 
     return (
         <Layout>
