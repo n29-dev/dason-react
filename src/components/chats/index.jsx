@@ -5,7 +5,6 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import { toggleChatsTab } from '../../features/chatsTab/chatsTabSlice';
 import { setCurrentActiveChat, setCurrentActiveChatMessage } from '../../features/users/usersSlice';
 import useDropdownToggle from '../../hooks/useDropdownToggle';
-import * as Images from '../../images';
 import { setCookie } from '../../lib/cookie';
 import Layout from '../partials/layout';
 import ChatBox from './chatBox';
@@ -24,7 +23,7 @@ function Chats() {
 
     const { currentUser, contacts, peers } = useSelector((store) => store.users);
     const { messages } = useSelector((store) => store);
-    const { displayName, uid } = currentUser;
+    const { displayName, uid, photoURL } = currentUser;
 
     // create new peer from contact
     function chatItemHandler(userId) {
@@ -51,7 +50,7 @@ function Chats() {
                         <div className="px-6 py-4 flex justify-between">
                             <div className="flex items-center gap-4">
                                 <div className="flex-shrink-0">
-                                    <img className="block w-12 h-12 rounded-full" src={Images.UserAvatar} alt="" />
+                                    <img className="block w-12 h-12 rounded-full" src={photoURL} alt="" />
                                 </div>
                                 <div>
                                     <h5 className="text-[16px] font-medium text-dark-600 flex items-center gap-[6px]">

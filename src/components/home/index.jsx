@@ -66,7 +66,6 @@ function Home() {
 
     // modal
     const location = useLocation();
-    console.log(location.state?.newUser);
     const [modalOpen, setModalOpen] = useState(location.state?.newUser);
 
     return (

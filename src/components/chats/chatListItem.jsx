@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 
 function ChatListItem({ photoUrl, username, clickHandler, uid }) {
     const messages = useSelector((store) => store.messages[uid]);
-    console.log(messages);
 
     return (
         <li className="hover:cursor-pointer" onClick={clickHandler}>
