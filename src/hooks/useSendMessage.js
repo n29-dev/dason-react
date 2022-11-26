@@ -7,7 +7,7 @@ import { removeContact, setCurrentActiveChatMessageRoomPath } from '../features/
 function useSendMessage(messageInputRef) {
     const { currentActiveChat, currentUser } = useSelector((store) => store.users);
     const { uid: currentActiveChatId, messageRoomPath } = currentActiveChat;
-    const { uid: currentUserId } = currentUser;
+    const { uid: currentUserId, photoURL } = currentUser;
     const dispatch = useDispatch();
 
     // async function for sending messages
@@ -20,14 +20,14 @@ function useSendMessage(messageInputRef) {
         }
 
         if (messageRoomPath) {
-            sendMessage(messageRoomPath, currentUserId, messageBody);
+            sendMessage(messageRoomPath, currentUserId, photoURL, messageBody);
         } else {
             const messageRoomPath = await createPeer(currentUserId, currentActiveChatId);
             setCurrentActiveChatMessageRoomPath(messageRoomPath);
             // remove contact
             dispatch(removeContact(currentActiveChatId));
 
-            await sendMessage(messageRoomPath, currentUserId, messageBody);
+            await sendMessage(messageRoomPath, currentUserId, photoURL, messageBody);
             dispatch(toggleChatsTab('chat'));
         }
     };

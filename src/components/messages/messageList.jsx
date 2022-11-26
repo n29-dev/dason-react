@@ -7,12 +7,12 @@ function MessageList({ msglist, currentUserId }) {
         <div>
             <ul className="px-4">
                 {msglist.map((msg) => {
-                    const { senderId, messageBody, created } = msg;
+                    const { senderId, messageBody, created, photoURL } = msg;
                     const date = new Date(created * 1000);
 
                     return (
                         <Message
-                            photo={CustomterAvatar1}
+                            photo={photoURL || CustomterAvatar1}
                             messageBody={messageBody}
                             recieved={currentUserId !== senderId}
                             created={date.toDateString()}

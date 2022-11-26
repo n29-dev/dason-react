@@ -28,6 +28,7 @@ function MessageObserver({ children }) {
                         created: message.created?.seconds || new Date().getSeconds(),
                         messageBody: message.messageBody,
                         senderId: message.senderId,
+                        photoURL: message.photoURL,
                     };
                 });
 
@@ -76,13 +77,14 @@ function MessageObserver({ children }) {
         return clearListener;
     }, []);
 
+    // eslint-disable-next-line consistent-return
     useEffect(() => {
         // if current user peers are empty set message loading to false
-        if(currentUserPeers.length < 1){
+        if (currentUserPeers.length < 1) {
             dispatch(setMessageLoading(false));
-        }else{
+        } else {
             const clearListenersArray = observeMessageRooms(currentUserPeers);
-            
+
             // clear listeners
             return () => {
                 clearListenersArray.forEach((func) => func());

@@ -22,12 +22,12 @@ function ChatBox() {
         displayName: activeChatDisplayName,
         uid: currentActiveChatId,
         messages: activeChatMessages,
-        photoURL,
+        photoURL: activeChatPhotoURL,
     } = currentActiveChat;
 
     const { loading } = useSelector((store) => store.messages);
 
-    const { displayName: currentUserDisplayName, uid: currentUserId } = currentUser;
+    const { displayName: currentUserDisplayName, uid: currentUserId, photoURL: currentUserPhotoURL } = currentUser;
 
     // send message
     const messageInputRef = useRef();
@@ -39,7 +39,11 @@ function ChatBox() {
             <div className="px-6 py-4 flex justify-between border-b border-[#e9e9ef]">
                 <div className="flex items-center gap-4">
                     <div className="flex-shrink-0">
-                        <img className="block w-12 h-12 rounded-full" src={photoURL || Images.UserAvatar} alt="" />
+                        <img
+                            className="block w-12 h-12 rounded-full"
+                            src={activeChatPhotoURL || currentUserPhotoURL}
+                            alt=""
+                        />
                     </div>
                     <div>
                         <h5 className="text-[16px] font-medium text-dark-600 flex items-center gap-[6px]">
