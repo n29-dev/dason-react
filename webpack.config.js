@@ -51,7 +51,6 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                exclude: /(node_modules|bower_components)/,
                 use: [
                     MiniCssExtractPluin.loader,
                     'css-loader',

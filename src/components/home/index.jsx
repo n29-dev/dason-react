@@ -15,6 +15,7 @@ import MessageInput from '../messages/messageInput';
 import MessageList from '../messages/messageList';
 import Layout from '../partials/layout';
 import Customer from './customer';
+import Map from './map';
 import Product from './product';
 import ShopOverview from './shopOverview';
 import UploadProfilePic from './uploadProflePic';
@@ -236,7 +237,9 @@ function Home() {
                     </div>
                 </div>
                 {/* sales by location */}
-                <div></div>
+                <div>
+                    <Map />
+                </div>
                 {/* customer list / selling products */}
                 <div className="grid grid-cols-[35%,_65%] gap-6 mr-6">
                     {/* customer list */}

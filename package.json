@@ -45,10 +45,12 @@
         "@reduxjs/toolkit": "^1.8.5",
         "dotenv-webpack": "^8.0.1",
         "firebase": "^9.10.0",
+        "leaflet": "^1.9.3",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-dropzone": "^14.2.3",
         "react-hot-toast": "^2.4.0",
+        "react-leaflet": "^4.1.0",
         "react-redux": "^8.0.4",
         "react-router-dom": "^6.4.2",
         "recharts": "^2.1.14"

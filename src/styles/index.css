@@ -256,3 +256,8 @@ form.error .error-notice {
 .skeleton {
     animation: skeletonFade 1s linear infinite alternate;
 }
+
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+}
