@@ -27,7 +27,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(png|jpg|gif|jpeg)$/,
+                test: /\.(png|jpg|gif|jpeg|mp3)$/,
                 type: 'asset/resource',
             },
             {
@@ -91,7 +91,7 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: ['.js', '.json', '.jsx', '.png', '.svg', 'jpg', 'jpeg'],
+        extensions: ['.js', '.json', '.jsx', '.png', '.svg', '.jpg', '.jpeg', '.mp3'],
         alias: {
             Images: path.resolve(__dirname, 'src/public/assets/images'),
         },
